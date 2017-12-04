@@ -13,8 +13,14 @@
 	
 	<!-- Import RBSHERPA wheels -->
 	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/rubber_wheel.urdf.xacro" />	
+	
+	<!-- Import RBSHERPA motor wheels -->
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/motor_rubber_wheel.urdf.xacro" />
+	
+	<!-- Import RBSHERPA structure-->
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/structures/structure.urdf.xacro" />
 
-    <xacro:arg name="prefix" default="rbsherpa_hl_"/>
+    <xacro:arg name="prefix" default="rbsherpa_hl"/>
 	<!-- Import all available sensors -->
 	<!--xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" /-->
   
@@ -30,9 +36,13 @@
 	<!-- Wheel parameters -->
 	<xacro:property name="wheel_offset_x" value="0.7115" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
 	<xacro:property name="wheel_offset_y" value="0.36" />    
-	<xacro:property name="wheel_offset_z" value="0.48265" />
+	<xacro:property name="wheel_offset_z" value="0.48265" />	
+	  
+	<!-- Motor wheel parameters -->
+	<xacro:property name="motor_wheel_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="motor_wheel_offset_y" value="0.029" />    
+	<xacro:property name="motor_wheel_offset_z" value="-0.28265" />
 		
-
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
 
@@ -44,6 +54,11 @@
 
 	<!-- RBSherpa base -->
 	<xacro:rbsherpa_hl_base prefix="$(arg prefix)" publish_bf="true" hq="${hq}" />
+	
+	<!-- Structure -->
+	<xacro:structure prefix="$(arg prefix)" parent="$(arg prefix)base_link">
+		<origin xyz="0.4785 0.01 2.05265" rpy="0 0 0"/>
+	</xacro:structure>
   
 	<!-- Gazebo ros control pluggins -->
 	<!--xacro:ros_control/-->
@@ -66,7 +81,25 @@
 	<xacro:rubber_wheel prefix="$(arg prefix)back_left" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
 		<origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:rubber_wheel>
-    
+	
+	<!-- MOTOR WHEELS -->
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_front_right" parent="$(arg prefix)front_right_wheel_link" reflect="false" hq="${hq}">
+		<origin xyz="${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
+	</xacro:motor_rubber_wheel>
+  
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_front_left" parent="$(arg prefix)front_left_wheel_link" reflect="true" hq="${hq}">
+		<origin xyz="${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:motor_rubber_wheel>
+	
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_back_right" parent="$(arg prefix)back_right_wheel_link" reflect="false" hq="${hq}">
+		<origin xyz="-${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
+	</xacro:motor_rubber_wheel>
+  
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_back_left" parent="$(arg prefix)back_left_wheel_link" reflect="true" hq="${hq}">
+		<origin xyz="-${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:motor_rubber_wheel>
+	
+	    
 	<!-- SENSORS -->    
     
 	<!--xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">

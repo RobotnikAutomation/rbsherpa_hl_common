@@ -21,7 +21,7 @@
       <parent link="${parent}"/>
       <child link="${prefix}_wheel_link"/>
       <xacro:insert_block name="origin" />
-      <axis xyz="0 1 0" rpy="0 0 0" />
+      <axis xyz="0 0 1" rpy="0 0 0" />
       <limit effort="100" velocity="100"/>
       <joint_properties damping="0.0" friction="0.0"/>
     </joint>
@@ -33,10 +33,10 @@
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>     
 			<xacro:if value="${reflect}">
-			 <mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_motorwheel.dae" />
+			 <mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_wheel.dae" />
 			</xacro:if>
 			<xacro:unless value="${reflect}">
-			 <mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_motorwheel.dae" />
+			 <mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_wheel.dae" />
 			</xacro:unless>
           </geometry>         
         </xacro:if>
@@ -52,7 +52,7 @@
       <collision>
 		<origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
         <geometry>
-          <cylinder length="${wheel_height}" radius="${wheel_radius}" />
+			<mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_motorwheel.stl" />
         </geometry>
       </collision>    
       <inertial>
