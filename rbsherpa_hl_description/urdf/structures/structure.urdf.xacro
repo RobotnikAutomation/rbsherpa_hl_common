@@ -2,80 +2,71 @@
 <robot name="rbsherpa_structure" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
-  <!-- TODO: Modify these values -->
-  <xacro:property name="wheel_radius" value="0.125" /> 
-  <xacro:property name="wheel_height" value="0.14" /> <!-- really is the wheel width -->
-  <xacro:property name="wheel_mass" value="6.5" /> <!-- in kg-->
- 
-   <xacro:macro name="cylinder_inertia" params="m r h">
-    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
-              iyy="${m*r*r/2}" iyz = "0"
-              izz="${m*(3*r*r+h*h)/12}" /> 
-  </xacro:macro>
- 
+
   <xacro:macro name="structure" params="prefix parent *origin">
-  
+
 	<!--fixed joint -->
     <joint name="${prefix}structure_joint" type="fixed">
       <parent link="${parent}"/>
       <child link="${prefix}structure_link"/>
-      <xacro:insert_block name="origin" />      
+      <xacro:insert_block name="origin" />
     </joint>
-  
+
     <link name="${prefix}structure_link">
       <visual>
         <!-- COLUMN -->
           <origin xyz="0 0 0" rpy="0 0 0" />
-          <geometry>     
-
-			 <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_column.dae" />
-		
-          </geometry>              
-      </visual>      
+          <geometry>
+			      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_column.dae" />
+          </geometry>
+      </visual>
       <collision>
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		    <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-			<mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_column.stl" />
+			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_column.stl" />
         </geometry>
-      </collision>    
+      </collision>
       <inertial>
-        <mass value="${wheel_mass}" />
-        <origin xyz="0 0 0" />
-        <cylinder_inertia  m="${wheel_mass}" r="${wheel_radius}" h="${wheel_height}" />
+        <mass value="14.92765" />
+        <origin xyz="-0.0195 -0.01 -0.750" />
+        <inertia  ixx="2.807543" ixy = "0" ixz = "0"
+                  iyy="2.804071" iyz = "0"
+                  izz="0.0137441" />
       </inertial>
     </link>
-    
+
     <!--GIRO: fixed joint -->
     <joint name="${prefix}platform_joint" type="fixed">
       <parent link="${prefix}structure_link"/>
       <origin xyz="-0.01 -0.01 0" rpy="0 0 0" />
       <child link="${prefix}platform_link"/>
-      <xacro:insert_block name="origin" />      
+      <xacro:insert_block name="origin" />
     </joint>
-  
+
     <link name="${prefix}platform_link">
-      <visual>        
+      <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
-          <geometry>     
-			 <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_tt_giro.dae" />		
-          </geometry>            
+          <geometry>
+			      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_tt_giro.dae" />
+          </geometry>
       </visual>
-      
+
       <collision>
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		    <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-			<mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_tt_giro.stl" />
+			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_tt_giro.stl" />
         </geometry>
-      </collision>    
+      </collision>
       <inertial>
-        <mass value="${wheel_mass}" />
-        <origin xyz="0 0 0" />
-        <cylinder_inertia  m="${wheel_mass}" r="${wheel_radius}" h="${wheel_height}" />
+        <mass value="4.64491" />
+        <origin xyz="0 0 0.004" />
+        <inertia  ixx="0.134515" ixy = "0" ixz = "0"
+                  iyy="0.0086520177" iyz = "0"
+                  izz="0.143118" />
       </inertial>
     </link>
-    
-    
+
+
   </xacro:macro>
 
 </robot>
- 

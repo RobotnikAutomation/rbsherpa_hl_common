@@ -5,21 +5,9 @@
   <xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/motor_rubber_wheel.gazebo.xacro"/>
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
-  <!-- Wheels -->
-  <xacro:property name="wheel_radius" value="0.125" /> 
-  <xacro:property name="wheel_height" value="0.14" /> <!-- really is the wheel width -->
-  <xacro:property name="wheel_mass" value="6.5" /> <!-- in kg-->
- 
- 
-  <xacro:macro name="cylinder_inertia" params="m r h">
-    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
-              iyy="${m*r*r/2}" iyz = "0"
-              izz="${m*(3*r*r+h*h)/12}" /> 
-  </xacro:macro>
- 
+
   <xacro:macro name="motor_rubber_wheel" params="prefix parent *origin reflect hq">
-  
-	<!--WHEEL TIRE -->
+
     <joint name="${prefix}_wheel_joint" type="continuous">
       <parent link="${parent}"/>
       <child link="${prefix}_wheel_link"/>
@@ -28,40 +16,42 @@
       <limit effort="100" velocity="100"/>
       <joint_properties damping="0.0" friction="0.0"/>
     </joint>
-  
+
     <link name="${prefix}_wheel_link">
       <visual>
         <!-- HIGH RESOLUTION WHEELS -->
         <xacro:if value="${hq}">
           <origin xyz="0 0 0" rpy="0 0 0" />
-          <geometry>     
+          <geometry>
 			<xacro:if value="${reflect}">
 			 <mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_motorwheel.dae" />
 			</xacro:if>
 			<xacro:unless value="${reflect}">
 			 <mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_motorwheel.dae" />
 			</xacro:unless>
-          </geometry>         
+          </geometry>
         </xacro:if>
        <!-- LOW RESOLUTION WHEELS -->
         <xacro:unless value="${hq}">
           <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
-          <geometry>           
+          <geometry>
             <cylinder length="${wheel_height}" radius="${wheel_radius}" />
-          </geometry>      
+          </geometry>
         </xacro:unless>
       </visual>
-      
+
       <collision>
 		<origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
         <geometry>
           <cylinder length="${wheel_height}" radius="${wheel_radius}" />
         </geometry>
-      </collision>    
+      </collision>
       <inertial>
-        <mass value="${wheel_mass}" />
-        <origin xyz="0 0 0" />
-        <cylinder_inertia  m="${wheel_mass}" r="${wheel_radius}" h="${wheel_height}" />
+        <mass value="37.29668" />
+        <origin xyz="0.00122 -0.00633 0.07032" />
+        <inertia  ixx="0.656095" ixy = "0.0002884484" ixz = "0.0037546231"
+                  iyy="0.645381" iyz = "0.06221658"
+                  izz="0.160381" />
       </inertial>
     </link>
     
