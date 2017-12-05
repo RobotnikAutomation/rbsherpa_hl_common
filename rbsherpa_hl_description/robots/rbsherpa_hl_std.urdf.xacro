@@ -26,7 +26,7 @@
   <xacro:arg name="prefix" default="rbsherpa_hl"/>
 
     <!-- Import Gazebo Stuff -->
-    <!--xacro:include filename="$(find rbsherpa_xl_description)/urdf/common.gazebo.xacro" /-->
+    <xacro:include filename="$(find rbsherpa_hl_description)/urdf/common.gazebo.xacro" />
 
 
 	<!-- ***************** -->
@@ -62,7 +62,7 @@
 	</xacro:structure>
 
 	<!-- Gazebo ros control pluggins -->
-	<!--xacro:ros_control/-->
+	<xacro:ros_control/>
 
 	<!--xacro:gazebo_colors prefix="$(arg prefix)"/-->
 
