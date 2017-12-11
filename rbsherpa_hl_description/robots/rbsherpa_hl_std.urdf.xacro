@@ -42,7 +42,7 @@
 	<!-- Motor wheel parameters -->
 	<xacro:property name="motor_wheel_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
 	<xacro:property name="motor_wheel_offset_y" value="0.029" />
-	<xacro:property name="motor_wheel_offset_z" value="-0.28265" /> <!-- -0.28265 -->
+	<xacro:property name="motor_wheel_offset_z" value="-0.2985" /> 
 
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />

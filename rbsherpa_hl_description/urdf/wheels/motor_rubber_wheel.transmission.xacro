@@ -7,10 +7,10 @@
 	<transmission name="${prefix}_motor_wheel_joint_trans">
 	  <type>transmission_interface/SimpleTransmission</type>
 	  <joint name="${prefix}_wheel_joint">
-		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
 	  </joint>
 	  <actuator name="${prefix}_motor_wheel_joint_motor">
-		<hardwareInterface>hardware_interface/PositionActuatorInterface</hardwareInterface>
+		<hardwareInterface>hardware_interface/VelocityActuatorInterface</hardwareInterface>
 		<mechanicalReduction>${motor_wheel_mechanical_reduction}</mechanicalReduction>
 	  </actuator>
 	 </transmission>
