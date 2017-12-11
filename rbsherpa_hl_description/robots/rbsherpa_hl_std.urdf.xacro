@@ -42,7 +42,7 @@
 	<!-- Motor wheel parameters -->
 	<xacro:property name="motor_wheel_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
 	<xacro:property name="motor_wheel_offset_y" value="0.029" />
-	<xacro:property name="motor_wheel_offset_z" value="-0.28265" />
+	<xacro:property name="motor_wheel_offset_z" value="-0.28265" /> <!-- -0.28265 -->
 
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
@@ -84,24 +84,28 @@
 	</xacro:rubber_wheel>
 
 	<!-- MOTOR WHEELS -->
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_front_right" parent="$(arg prefix)front_right_wheel_link" reflect="false" hq="${hq}">
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)front_right_motor" parent="$(arg prefix)front_right_wheel_link" reflect="false" hq="${hq}">
 		<origin xyz="${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
 	</xacro:motor_rubber_wheel>
 
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_front_left" parent="$(arg prefix)front_left_wheel_link" reflect="true" hq="${hq}">
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)front_left_motor" parent="$(arg prefix)front_left_wheel_link" reflect="true" hq="${hq}">
 		<origin xyz="${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:motor_rubber_wheel>
 
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_back_right" parent="$(arg prefix)back_right_wheel_link" reflect="false" hq="${hq}">
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)back_right_motor" parent="$(arg prefix)back_right_wheel_link" reflect="false" hq="${hq}">
 		<origin xyz="-${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
 	</xacro:motor_rubber_wheel>
 
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)motor_back_left" parent="$(arg prefix)back_left_wheel_link" reflect="true" hq="${hq}">
+	<xacro:motor_rubber_wheel prefix="$(arg prefix)back_left_motor" parent="$(arg prefix)back_left_wheel_link" reflect="true" hq="${hq}">
 		<origin xyz="-${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:motor_rubber_wheel>
 
 
 	<!-- SENSORS -->
+    <!--xacro:sensor_imu prefix="imu" parent="${prefix}base_link">
+          <origin xyz="-0.40 0.06 0.75" rpy="0 0 0"/>
+	</xacro:sensor_imu-->
+	
     <xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
 		<origin xyz="0.9285 -0.51 0.45891" rpy="0 0 ${-PI/4.0}"/>
 	</xacro:sensor_sick_s300>

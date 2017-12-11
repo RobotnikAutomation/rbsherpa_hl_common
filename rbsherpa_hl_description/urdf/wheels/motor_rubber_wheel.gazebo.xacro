@@ -9,6 +9,6 @@
 				<fdir1 value="1 0 0"/>
 		  <turnGravityOff>false</turnGravityOff>
 		</gazebo>
-	</xacro:macro>
+	</xacro:macro>	
 
 </robot>
