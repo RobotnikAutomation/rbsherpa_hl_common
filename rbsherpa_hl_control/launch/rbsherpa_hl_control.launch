@@ -4,10 +4,10 @@
     <arg name="prefix" default="rbsherpa_hl_"/>
 
     <rosparam file="$(find rbsherpa_hl_control)/config/rbsherpa_hl_control.yaml" command="load"/>
-      <param name="omni_drive_controller/joint/back_left_wheel_joint/name" value="$(arg prefix)back_left_wheel_joint"/>
-      <param name="omni_drive_controller/joint/back_right_wheel_joint/name" value="$(arg prefix)back_right_wheel_joint"/>
-      <param name="omni_drive_controller/joint/front_right_wheel_joint/name" value="$(arg prefix)front_right_wheel_joint"/>
-      <param name="omni_drive_controller/joint/front_left_wheel_joint/name" value="$(arg prefix)front_left_wheel_joint"/>
+      <param name="omni_drive_controller/joint/back_left_steer_wheel_joint/name" value="$(arg prefix)back_left_steer_wheel_joint"/>
+      <param name="omni_drive_controller/joint/back_right_steer_wheel_joint/name" value="$(arg prefix)back_right_steer_wheel_joint"/>
+      <param name="omni_drive_controller/joint/front_right_steer_wheel_joint/name" value="$(arg prefix)front_right_steer_wheel_joint"/>
+      <param name="omni_drive_controller/joint/front_left_steer_wheel_joint/name" value="$(arg prefix)front_left_steer_wheel_joint"/>
       <param name="omni_drive_controller/joint/back_left_motor_wheel_joint/name" value="$(arg prefix)back_left_motor_wheel_joint"/>
       <param name="omni_drive_controller/joint/back_right_motor_wheel_joint/name" value="$(arg prefix)back_right_motor_wheel_joint"/>
       <param name="omni_drive_controller/joint/front_right_motor_wheel_joint/name" value="$(arg prefix)front_right_motor_wheel_joint"/>

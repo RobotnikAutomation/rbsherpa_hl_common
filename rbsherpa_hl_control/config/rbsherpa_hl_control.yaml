@@ -1,34 +1,34 @@
 front_left_motor_wheel_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: front_left_wheel_joint
+  joint: rbsherpa_hl_a_front_left_motor_wheel_joint
 
-front_left_wheel_joint_controller:
+front_left_steer_wheel_joint_controller:
   type: position_controllers/JointPositionController
-  joint: front_left_motor_wheel_joint
+  joint: rbsherpa_hl_a_front_left_steer_wheel_joint
 
 front_right_motor_wheel_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: front_right_wheel_joint
+  joint: rbsherpa_hl_a_front_right_motor_wheel_joint
 
-front_right_wheel_joint_controller:
+front_right_steer_wheel_joint_controller:
   type: position_controllers/JointPositionController
-  joint: front_right_motor_wheel_joint
+  joint: rbsherpa_hl_a_front_right_steer_wheel_joint
 
 back_left_motor_wheel_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: back_left_wheel_joint
+  joint: rbsherpa_hl_a_back_left_motor_wheel_joint
 
-back_left_wheel_joint_controller:
+back_left_steer_wheel_joint_controller:
   type: position_controllers/JointPositionController
-  joint: back_left_motor_wheel_joint
+  joint: rbsherpa_hl_a_back_left_steer_wheel_joint
 
 back_right_motor_wheel_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: back_right_wheel_joint
+  joint: rbsherpa_hl_a_back_right_motor_wheel_joint
 
-back_right_wheel_joint_controller:
+back_right_steer_wheel_joint_controller:
   type: position_controllers/JointPositionController
-  joint: back_right_motor_wheel_joint
+  joint: rbsherpa_hl_a_back_right_steer_wheel_joint
 
 omni_drive_controller:
   type: omni_drive_controller/OmniDriveController
@@ -45,20 +45,20 @@ omni_drive_controller:
     rbsherpa_hl_a_back_left_motor_wheel_joint:
         name: rbsherpa_hl_a_back_left_motor_wheel_joint
         max_speed: 20.0 # rad/s
-    rbsherpa_hl_a_front_right_wheel_joint:
-        name: rbsherpa_hl_a_front_right_wheel_joint
+    rbsherpa_hl_a_front_right_steer_wheel_joint:
+        name: rbsherpa_hl_a_front_right_steer_wheel_joint
         min_angle: -2.6 # rads
         max_angle: 2.6
-    rbsherpa_hl_a_front_left_wheel_joint:
-        name: rbsherpa_hl_a_front_left_wheel_joint
+    rbsherpa_hl_a_front_left_steer_wheel_joint:
+        name: rbsherpa_hl_a_front_left_steer_wheel_joint
         min_angle: -2.6 # rads
         max_angle: 2.6
-    rbsherpa_hl_a_back_right_wheel_joint:
-        name: rbsherpa_hl_a_back_right_wheel_joint
+    rbsherpa_hl_a_back_right_steer_wheel_joint:
+        name: rbsherpa_hl_a_back_right_steer_wheel_joint
         min_angle: -2.6 # rads
         max_angle: 2.6
-    rbsherpa_hl_a_back_left_wheel_joint:
-        name: rbsherpa_hl_a_back_left_wheel_joint
+    rbsherpa_hl_a_back_left_steer_wheel_joint:
+        name: rbsherpa_hl_a_back_left_steer_wheel_joint
         min_angle: -2.6 # rads
         max_angle: 2.6
   linear_speed_limit: 2.8
@@ -82,11 +82,11 @@ joint_read_state_controller:
 # Settings for ros_control hardware interface
 hardware_interface:
   joints:
-     - front_right_wheel_joint
-     - front_left_wheel_joint
-     - back_right_wheel_joint
-     - back_left_wheel_joint
-     - front_right_motor_wheel_joint
-     - front_left_motor_wheel_joint
-     - back_right_motor_wheel_joint
-     - back_left_motor_wheel_joint
+     - rbsherpa_hl_a_front_right_steer_wheel_joint
+     - rbsherpa_hl_a_front_left_steer_wheel_joint
+     - rbsherpa_hl_a_back_right_steer_wheel_joint
+     - rbsherpa_hl_a_back_left_steer_wheel_joint
+     - rbsherpa_hl_a_front_right_motor_wheel_joint
+     - rbsherpa_hl_a_front_left_motor_wheel_joint
+     - rbsherpa_hl_a_back_right_motor_wheel_joint
+     - rbsherpa_hl_a_back_left_motor_wheel_joint

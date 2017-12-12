@@ -3,7 +3,7 @@
 
  <xacro:property name="motor_wheel_mechanical_reduction" value="1.0" />
 
-<xacro:macro name="motor_rubber_wheel_transmission" params="prefix">
+<xacro:macro name="motor_wheel_transmission" params="prefix">
 	<transmission name="${prefix}_motor_wheel_joint_trans">
 	  <type>transmission_interface/SimpleTransmission</type>
 	  <joint name="${prefix}_wheel_joint">

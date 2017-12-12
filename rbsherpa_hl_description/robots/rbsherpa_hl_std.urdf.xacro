@@ -12,10 +12,10 @@
   <xacro:include filename="$(find rbsherpa_hl_description)/urdf/bases/rbsherpa_hl_base.urdf.xacro" />
 
 	<!-- Import RBSHERPA wheels -->
-	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/rubber_wheel.urdf.xacro" />
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/steer_wheel.urdf.xacro" />
 
 	<!-- Import RBSHERPA motor wheels -->
-	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/motor_rubber_wheel.urdf.xacro" />
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/motor_wheel.urdf.xacro" />
 
 	<!-- Import RBSHERPA structure-->
 	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/structures/structure.urdf.xacro" />
@@ -57,9 +57,9 @@
 	<xacro:rbsherpa_hl_base prefix="$(arg prefix)" publish_bf="true" hq="${hq}" />
 
 	<!-- Structure -->
-	<xacro:structure prefix="$(arg prefix)" parent="$(arg prefix)base_link">
+	<!--xacro:structure prefix="$(arg prefix)" parent="$(arg prefix)base_link">
 		<origin xyz="0.4785 0.01 2.05265" rpy="0 0 0"/>
-	</xacro:structure>
+	</xacro:structure-->
 
 	<!-- Gazebo ros control pluggins -->
 	<xacro:ros_control/>
@@ -67,39 +67,56 @@
 	<!--xacro:gazebo_colors prefix="$(arg prefix)"/-->
 
 	<!-- WHEELS -->
-	<xacro:rubber_wheel prefix="$(arg prefix)front_right" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
+	<xacro:steer_wheel prefix="$(arg prefix)front_right_steer" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
 		<origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:rubber_wheel>
+	</xacro:steer_wheel>
 
-	<xacro:rubber_wheel prefix="$(arg prefix)front_left" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
+	<xacro:steer_wheel prefix="$(arg prefix)front_left_steer" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
 		<origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:rubber_wheel>
+	</xacro:steer_wheel>
 
-	<xacro:rubber_wheel prefix="$(arg prefix)back_right" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
+	<xacro:steer_wheel prefix="$(arg prefix)back_right_steer" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
 		<origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:rubber_wheel>
+	</xacro:steer_wheel>
 
-	<xacro:rubber_wheel prefix="$(arg prefix)back_left" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
+	<xacro:steer_wheel prefix="$(arg prefix)back_left_steer" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
 		<origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:rubber_wheel>
+	</xacro:steer_wheel>
 
 	<!-- MOTOR WHEELS -->
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)front_right_motor" parent="$(arg prefix)front_right_wheel_link" reflect="false" hq="${hq}">
+	<xacro:motor_wheel prefix="$(arg prefix)front_right_motor" parent="$(arg prefix)front_right_steer_wheel_link" reflect="false" hq="${hq}">
 		<origin xyz="${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
-	</xacro:motor_rubber_wheel>
+	</xacro:motor_wheel>
 
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)front_left_motor" parent="$(arg prefix)front_left_wheel_link" reflect="true" hq="${hq}">
+	<xacro:motor_wheel prefix="$(arg prefix)front_left_motor" parent="$(arg prefix)front_left_steer_wheel_link" reflect="true" hq="${hq}">
 		<origin xyz="${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:motor_rubber_wheel>
+	</xacro:motor_wheel>
 
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)back_right_motor" parent="$(arg prefix)back_right_wheel_link" reflect="false" hq="${hq}">
+	<xacro:motor_wheel prefix="$(arg prefix)back_right_motor" parent="$(arg prefix)back_right_steer_wheel_link" reflect="false" hq="${hq}">
 		<origin xyz="-${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
-	</xacro:motor_rubber_wheel>
+	</xacro:motor_wheel>
 
-	<xacro:motor_rubber_wheel prefix="$(arg prefix)back_left_motor" parent="$(arg prefix)back_left_wheel_link" reflect="true" hq="${hq}">
+	<xacro:motor_wheel prefix="$(arg prefix)back_left_motor" parent="$(arg prefix)back_left_steer_wheel_link" reflect="true" hq="${hq}">
 		<origin xyz="-${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:motor_rubber_wheel>
+	</xacro:motor_wheel>
+	
+<!--
+	<xacro:motor_wheel prefix="$(arg prefix)front_right_motor" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
+		<origin xyz="${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
+	</xacro:motor_wheel>
 
+	<xacro:motor_wheel prefix="$(arg prefix)front_left_motor" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
+		<origin xyz="${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:motor_wheel>
+
+	<xacro:motor_wheel prefix="$(arg prefix)back_right_motor" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
+		<origin xyz="-${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
+	</xacro:motor_wheel>
+
+	<xacro:motor_wheel prefix="$(arg prefix)back_left_motor" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
+		<origin xyz="-${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:motor_wheel>
+-->
 
 	<!-- SENSORS -->
     <!--xacro:sensor_imu prefix="imu" parent="${prefix}base_link">
