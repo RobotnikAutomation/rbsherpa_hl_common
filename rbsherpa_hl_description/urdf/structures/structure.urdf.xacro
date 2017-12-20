@@ -14,25 +14,27 @@
 
     <link name="${prefix}structure_link">
       <visual>
-        <!-- COLUMN -->
-          <origin xyz="0 0 0" rpy="0 0 0" />
-          <geometry>
-			      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_column.dae" />
-          </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+		      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_column.dae" />
+        </geometry>
       </visual>
+
       <collision>
 		    <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
 			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_column.stl" />
         </geometry>
       </collision>
+
       <inertial>
         <mass value="14.92765" />
         <origin xyz="-0.0195 -0.01 -0.750" />
-        <inertia  ixx="2.807543" ixy = "0" ixz = "0"
-                  iyy="2.804071" iyz = "0"
-                  izz="0.0137441" />
+        <inertia  ixx="2.80754349924" ixy = "0" ixz = "0"
+                  iyy="2.80407121984" iyz = "0"
+                  izz="0.01374410335" />
       </inertial>
+
     </link>
 
     <!--GIRO: fixed joint -->
@@ -45,10 +47,10 @@
 
     <link name="${prefix}platform_link">
       <visual>
-          <origin xyz="0 0 0" rpy="0 0 0" />
-          <geometry>
-			      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_tt_giro.dae" />
-          </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+		      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_tt_giro.dae" />
+        </geometry>
       </visual>
 
       <collision>
@@ -57,15 +59,16 @@
 			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_tt_giro.stl" />
         </geometry>
       </collision>
+
       <inertial>
         <mass value="4.64491" />
         <origin xyz="0 0 0.004" />
-        <inertia  ixx="0.134515" ixy = "0" ixz = "0"
-                  iyy="0.0086520177" iyz = "0"
-                  izz="0.143118" />
+        <inertia  ixx="0.13451516929" ixy = "0" ixz = "0"
+                  iyy="0.00865201773" iyz = "0"
+                  izz="0.14311764130" />
       </inertial>
-    </link>
 
+    </link>
 
   </xacro:macro>
 

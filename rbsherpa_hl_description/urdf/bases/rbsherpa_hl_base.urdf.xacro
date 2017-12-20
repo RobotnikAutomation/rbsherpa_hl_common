@@ -3,62 +3,71 @@
 
   <xacro:macro name="rbsherpa_hl_base" params="prefix publish_bf hq">
 
-  <!-- Robot mechanical and motor parameters -->
-  <xacro:property name="PI" value="3.1415926535897931"/>
-  <xacro:property name="wheel_width" value="0.14" />
+    <!-- Robot mechanical and motor parameters -->
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="wheel_width" value="0.14" />
 
-  <!-- BASE FOOTPRINT -->
-  <xacro:if value="${publish_bf}">
-    <link name="${prefix}base_footprint">
+    <!-- BASE FOOTPRINT -->
+    <xacro:if value="${publish_bf}">
+      <link name="${prefix}base_footprint">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <box size="0.001 0.001 0.001" />
+            </geometry>
+        </visual>
+      </link>
+
+      <joint name="${prefix}base_footprint_joint" type="fixed">
+        <!--origin xyz="0 0 ${wheel_radius - wheel_offset_z - motor_wheel_offset_z}" rpy="0 0 0" /-->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="${prefix}base_footprint"/>
+        <child link="${prefix}base_link" />
+      </joint>
+    </xacro:if>
+
+    <!-- BASE_LINK -->
+    <link name="${prefix}base_link">
+      <inertial>
+        <mass value="381.91147" />
+        <origin xyz="0.01210 0.00057 0.41465" />
+        <inertia  ixx="66.029446" ixy="-0.05457547"  ixz="9.08271"  iyy="97.833795"  iyz="0.0012187052"  izz="79.714477" />
+      </inertial>
+
       <visual>
-          <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <xacro:if value="${hq}">
           <geometry>
-             <box size="0.001 0.001 0.001" />
+            <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/>
           </geometry>
+        </xacro:if>
+        <xacro:unless value="${hq}">
+          <geometry>
+            <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.stl"/>
+          </geometry>
+        </xacro:unless>
+
+        <!--
+        <geometry>
+          <box size="1.4 0.7 0.5" />
+        </geometry>
+        <material name="darkgrey">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+        -->
+
       </visual>
+
+      <collision>
+        <origin xyz="0 0 0.6" rpy="0 0 0 " />
+        <geometry>
+          <!--mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/-->
+          <box size="1.4 0.6 0.5" />
+        </geometry>
+      </collision>
+
     </link>
 
-    <joint name="${prefix}base_footprint_joint" type="fixed">
-       <!--origin xyz="0 0 ${wheel_radius - wheel_offset_z - motor_wheel_offset_z}" rpy="0 0 0" /-->
-       <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="${prefix}base_footprint"/>
-      <child link="${prefix}base_link" />
-    </joint>
-  </xacro:if>
-
-  <!-- BASE_LINK -->
-  <link name="${prefix}base_link">
-    <inertial>
-      <mass value="498.75915" />
-      <origin xyz="0.01399 0.00092 0.54575" />
-      <inertia  ixx="66.799101" ixy="-0.03168423"  ixz="12.670655"  iyy="151.592685"  iyz="0.0015868674"  izz="157.124924" />
-    </inertial>
-    <visual>
-       <origin xyz="0 0 0" rpy="0 0 0" />
-       <xacro:if value="${hq}">
-       <geometry>
-         <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/>
-       </geometry>
-       </xacro:if>
-       <xacro:unless value="${hq}">
-       <geometry>
-       <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.stl"/>
-       </geometry>
-       </xacro:unless>
- <geometry>
-<box size="1.4 0.7 0.5" /></geometry>
-       <material name="darkgrey">
-         <color rgba="0.1 0.1 0.1 1"/>
-       </material>
-    </visual>
-    <collision>
-       <origin xyz="0 0 0.6" rpy="0 0 0 " />
-       <geometry>
-         <!--mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/-->
-			<box size="1.4 0.6 0.5" />
-       </geometry>
-    </collision>
-  </link>
-
   </xacro:macro>
+
 </robot>
