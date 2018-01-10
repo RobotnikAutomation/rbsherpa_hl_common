@@ -35,15 +35,16 @@
       </inertial>
 
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
         <xacro:if value="${hq}">
+          <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
             <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/>
           </geometry>
         </xacro:if>
         <xacro:unless value="${hq}">
+          <origin xyz="0 0 0.5" rpy="0 0 0" />
           <geometry>
-            <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.stl"/>
+            <box size="1.55 0.925 0.5" />
           </geometry>
         </xacro:unless>
 
@@ -59,10 +60,10 @@
       </visual>
 
       <collision>
-        <origin xyz="0 0 0.6" rpy="0 0 0 " />
+        <origin xyz="0 0 0.5" rpy="0 0 0 " />
         <geometry>
           <!--mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/-->
-          <box size="1.4 0.6 0.5" />
+          <box size="1.55 0.925 0.5" />
         </geometry>
       </collision>
 
