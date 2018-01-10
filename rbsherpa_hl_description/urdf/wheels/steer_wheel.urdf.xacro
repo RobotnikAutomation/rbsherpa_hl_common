@@ -8,6 +8,12 @@
   <xacro:property name="steer_joint_friction" value="0.01" />
   <xacro:property name="steer_joint_position_limit" value="2.9" />
 
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+              iyy="${m*r*r/2}" iyz = "0"
+              izz="${m*(3*r*r+h*h)/12}" />
+  </xacro:macro>
+
   <xacro:macro name="steer_wheel" params="prefix parent *origin hq">
 
     <joint name="${prefix}_wheel_joint" type="revolute">
@@ -44,10 +50,16 @@
 
       <inertial>
         <mass value="32.81532" />
-        <origin xyz="0.00002 -0.06358 -0.18084" />
-        <inertia  ixx="0.469495" ixy = "0.0001387555" ixz = "0.00006456469"
-                  iyy="0.496194" iyz = "0.01288985"
-                  izz="0.263583" />
+        <xacro:if value="${hq}">
+          <origin xyz="0.00002 -0.06358 -0.18084" />
+          <inertia  ixx="0.469495" ixy = "0.0001387555" ixz = "0.00006456469"
+                    iyy="0.496194" iyz = "0.01288985"
+                    izz="0.263583" />
+        </xacro:if>
+        <xacro:unless value="${hq}">
+          <origin xyz="0 0 -0.18084" />
+          <cylinder_inertia  m="5" r="0.1" h="0.2" />
+        </xacro:unless>
       </inertial>
 
     </link>
