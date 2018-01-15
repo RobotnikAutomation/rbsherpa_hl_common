@@ -25,10 +25,11 @@
 
   <xacro:arg name="prefix" default="rbsherpa_hl"/>
 	<xacro:arg name="hq" default="false"/>
+  <xacro:arg name="ros_planar_move_plugin" default="true"/>
 
   <!-- Import Gazebo Stuff -->
   <xacro:include filename="$(find rbsherpa_hl_description)/urdf/common.gazebo.xacro" />
-
+  <xacro:include filename="$(find rbsherpa_hl_description)/urdf/bases/rbsherpa_hl_base.gazebo.xacro" />
 
 	<!-- ***************** -->
 	<!-- Global parameters -->
@@ -60,57 +61,67 @@
 		<origin xyz="0.4785 0.01 2.05265" rpy="0 0 0"/>
 	</xacro:structure-->
 
-	<!-- Gazebo ros control pluggins -->
-	<xacro:ros_control/>
-
 	<!--xacro:gazebo_colors prefix="$(arg prefix)"/-->
 
-	<!-- STEER WHEELS -->
-	<xacro:steer_wheel prefix="$(arg prefix)front_right_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-		<origin xyz="${steer_wheel_offset_x} -${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:steer_wheel>
+  <xacro:macro name="rbsherpa_hl" params="prefix hq">
 
-	<xacro:steer_wheel prefix="$(arg prefix)front_left_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-		<origin xyz="${steer_wheel_offset_x} ${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:steer_wheel>
+		<!-- STEER WHEELS -->
+		<xacro:steer_wheel prefix="$(arg prefix)front_right_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="${steer_wheel_offset_x} -${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:steer_wheel>
 
-	<xacro:steer_wheel prefix="$(arg prefix)back_right_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-		<origin xyz="-${steer_wheel_offset_x} -${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:steer_wheel>
+		<xacro:steer_wheel prefix="$(arg prefix)front_left_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="${steer_wheel_offset_x} ${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:steer_wheel>
 
-	<xacro:steer_wheel prefix="$(arg prefix)back_left_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-		<origin xyz="-${steer_wheel_offset_x} ${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:steer_wheel>
+		<xacro:steer_wheel prefix="$(arg prefix)back_right_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="-${steer_wheel_offset_x} -${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:steer_wheel>
 
-	<!-- MOTOR WHEELS -->
-	<xacro:motor_wheel prefix="$(arg prefix)front_right_motor" parent="$(arg prefix)front_right_steer_wheel_link" hq="$(arg hq)">
-		<origin xyz="${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
-	</xacro:motor_wheel>
+		<xacro:steer_wheel prefix="$(arg prefix)back_left_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="-${steer_wheel_offset_x} ${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:steer_wheel>
 
-	<xacro:motor_wheel prefix="$(arg prefix)front_left_motor" parent="$(arg prefix)front_left_steer_wheel_link" hq="$(arg hq)">
-		<origin xyz="${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:motor_wheel>
+		<!-- MOTOR WHEELS -->
+		<xacro:motor_wheel prefix="$(arg prefix)front_right_motor" parent="$(arg prefix)front_right_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:motor_wheel>
 
-	<xacro:motor_wheel prefix="$(arg prefix)back_right_motor" parent="$(arg prefix)back_right_steer_wheel_link" hq="$(arg hq)">
-		<origin xyz="-${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
-	</xacro:motor_wheel>
+		<xacro:motor_wheel prefix="$(arg prefix)front_left_motor" parent="$(arg prefix)front_left_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:motor_wheel>
 
-	<xacro:motor_wheel prefix="$(arg prefix)back_left_motor" parent="$(arg prefix)back_left_steer_wheel_link" hq="$(arg hq)">
-		<origin xyz="-${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
-	</xacro:motor_wheel>
+		<xacro:motor_wheel prefix="$(arg prefix)back_right_motor" parent="$(arg prefix)back_right_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="-${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:motor_wheel>
+
+		<xacro:motor_wheel prefix="$(arg prefix)back_left_motor" parent="$(arg prefix)back_left_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="-${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:motor_wheel>
 
 
-	<!-- SENSORS -->
-    <!--xacro:sensor_imu prefix="imu" parent="${prefix}base_link">
-          <origin xyz="-0.40 0.06 0.75" rpy="0 0 0"/>
-	</xacro:sensor_imu-->
+		<!-- SENSORS -->
+	    <!--xacro:sensor_imu prefix="imu" parent="${prefix}base_link">
+	          <origin xyz="-0.40 0.06 0.75" rpy="0 0 0"/>
+		</xacro:sensor_imu-->
 
-    <xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
-		<origin xyz="0.81495 -0.53572 0.28772" rpy="0 0 ${-PI/4.0}"/>
-	</xacro:sensor_sick_s300>
+		<xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
+			<origin xyz="0.81495 -0.53572 0.28772" rpy="0 0 ${-PI/4.0}"/>
+		</xacro:sensor_sick_s300>
 
-	<xacro:sensor_sick_s300 prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser">
-		<origin xyz="-0.81495 0.53572 0.28772" rpy="0 0 ${3.0*PI/4.0}"/>
-	</xacro:sensor_sick_s300>
+		<xacro:sensor_sick_s300 prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser">
+			<origin xyz="-0.81495 0.53572 0.28772" rpy="0 0 ${3.0*PI/4.0}"/>
+		</xacro:sensor_sick_s300>
+
+	</xacro:macro>
+
+	<!-- Gazebo ros control plugins -->
+	<xacro:ros_control/>
+
+	<xacro:if value="$(arg ros_planar_move_plugin)">
+		<xacro:omni_steering prefix="$(arg prefix)" publish_tf="false"/>
+	</xacro:if>
+
+	<xacro:rbsherpa_hl prefix="$(arg prefix)" hq="false"/>
 
 </robot>
