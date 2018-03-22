@@ -11,11 +11,11 @@
 	<!-- Import RBSHERPA base elements -->
   <xacro:include filename="$(find rbsherpa_hl_description)/urdf/bases/rbsherpa_hl_base.urdf.xacro" />
 
-	<!-- Import RBSHERPA wheels -->
+	<!-- Import RBSHERPA steer wheels -->
 	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/steer_wheel.urdf.xacro" />
 
-	<!-- Import RBSHERPA motor wheels -->
-	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/motor_wheel.urdf.xacro" />
+	<!-- Import RBSHERPA traction wheels -->
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/traction_wheel.urdf.xacro" />
 
 	<!-- Import RBSHERPA structure-->
 	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/structures/structure.urdf.xacro" />
@@ -36,15 +36,15 @@
 	<!-- ***************** -->
 	<xacro:property name="PI" value="3.1415926535897931"/>
 
-	<!-- Wheel parameters -->
+	<!-- Steer wheel parameters -->
 	<xacro:property name="steer_wheel_offset_x" value="0.6236" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
 	<xacro:property name="steer_wheel_offset_y" value="0.36063" />
 	<xacro:property name="steer_wheel_offset_z" value="0.28762" />
 
-	<!-- Motor wheel parameters -->
-	<xacro:property name="motor_wheel_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
-	<xacro:property name="motor_wheel_offset_y" value="0.029" />
-	<xacro:property name="motor_wheel_offset_z" value="-0.28762" />
+	<!-- Traction wheel parameters -->
+	<xacro:property name="traction_wheel_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="traction_wheel_offset_y" value="0.029" />
+	<xacro:property name="traction_wheel_offset_z" value="-0.28762" />
 
 
 	<!-- *************** -->
@@ -82,22 +82,22 @@
 			<origin xyz="-${steer_wheel_offset_x} ${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
 		</xacro:steer_wheel>
 
-		<!-- MOTOR WHEELS -->
-		<xacro:motor_wheel prefix="$(arg prefix)front_right_motor" parent="$(arg prefix)front_right_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
-		</xacro:motor_wheel>
+		<!-- traction WHEELS -->
+		<xacro:traction_wheel prefix="$(arg prefix)front_right_traction" parent="$(arg prefix)front_right_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="${traction_wheel_offset_x} -${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:traction_wheel>
 
-		<xacro:motor_wheel prefix="$(arg prefix)front_left_motor" parent="$(arg prefix)front_left_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:motor_wheel>
+		<xacro:traction_wheel prefix="$(arg prefix)front_left_traction" parent="$(arg prefix)front_left_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="${traction_wheel_offset_x} ${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:traction_wheel>
 
-		<xacro:motor_wheel prefix="$(arg prefix)back_right_motor" parent="$(arg prefix)back_right_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="-${motor_wheel_offset_x} -${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 ${PI}"/>
-		</xacro:motor_wheel>
+		<xacro:traction_wheel prefix="$(arg prefix)back_right_traction" parent="$(arg prefix)back_right_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="-${traction_wheel_offset_x} -${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:traction_wheel>
 
-		<xacro:motor_wheel prefix="$(arg prefix)back_left_motor" parent="$(arg prefix)back_left_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="-${motor_wheel_offset_x} ${motor_wheel_offset_y} ${motor_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:motor_wheel>
+		<xacro:traction_wheel prefix="$(arg prefix)back_left_traction" parent="$(arg prefix)back_left_steer_wheel_link" hq="$(arg hq)">
+			<origin xyz="-${traction_wheel_offset_x} ${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 0"/>
+		</xacro:traction_wheel>
 
 
 		<!-- SENSORS -->
