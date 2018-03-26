@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot name="traction_wheel" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="wheel_traction" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/traction_wheel.transmission.xacro"/>
+  <xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/wheel_traction.transmission.xacro"/>
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
   <xacro:property name="wheel_joint_damping" value="2.0" />
@@ -15,23 +15,23 @@
 							izz="${m*(3*r*r+h*h)/12}" />
 	</xacro:macro>
 
-  <xacro:macro name="traction_wheel" params="prefix parent *origin hq">
+  <xacro:macro name="wheel_traction" params="prefix parent *origin hq">
 
-	  <joint name="${prefix}_wheel_joint" type="continuous">
+	  <joint name="${prefix}_joint" type="continuous">
 	    <parent link="${parent}"/>
-	    <child link="${prefix}_wheel_link"/>
+	    <child link="${prefix}_link"/>
 	    <xacro:insert_block name="origin" />
 	    <axis xyz="0 1 0" rpy="0 0 0" />
 	    <limit effort="100" velocity="100"/>
 	    <joint_properties damping="${wheel_joint_damping}" friction="${wheel_joint_friction}"/>
 	  </joint>
 
-	  <link name="${prefix}_wheel_link">
+	  <link name="${prefix}_link">
 	    <visual>
 				<xacro:if value="${hq}">
 		      <origin xyz="0 0 0" rpy="0 0 0" />
 		      <geometry>
-						<mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_traction_wheel.dae" />
+						<mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_wheel_traction.dae" />
 		      </geometry>
 				</xacro:if>
 				<xacro:unless value="${hq}">
@@ -65,7 +65,7 @@
 
 	  </link>
 
-	  <xacro:traction_wheel_transmission prefix="${prefix}" />
+	  <xacro:wheel_traction_transmission prefix="${prefix}" />
 
   </xacro:macro>
 

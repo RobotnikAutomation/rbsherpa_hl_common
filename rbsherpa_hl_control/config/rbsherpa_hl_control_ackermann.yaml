@@ -1,58 +1,58 @@
-front_left_traction_wheel_joint_controller:
+front_left_wheel_traction_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbsherpa_hl_a_front_left_traction_wheel_joint
+  joint: rbsherpa_hl_front_left_wheel_traction_joint
 
-front_left_steer_wheel_joint_controller:
+front_left_wheel_steer_joint_controller:
   type: position_controllers/JointPositionController
-  joint: rbsherpa_hl_a_front_left_steer_wheel_joint
+  joint: rbsherpa_hl_front_left_wheel_steer_joint
 
-front_right_traction_wheel_joint_controller:
+front_right_wheel_traction_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbsherpa_hl_a_front_right_traction_wheel_joint
+  joint: rbsherpa_hl_front_right_wheel_traction_joint
 
-front_right_steer_wheel_joint_controller:
+front_right_wheel_steer_joint_controller:
   type: position_controllers/JointPositionController
-  joint: rbsherpa_hl_a_front_right_steer_wheel_joint
+  joint: rbsherpa_hl_front_right_wheel_steer_joint
 
-back_left_traction_wheel_joint_controller:
+back_left_wheel_traction_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbsherpa_hl_a_back_left_traction_wheel_joint
+  joint: rbsherpa_hl_back_left_wheel_traction_joint
 
-back_right_traction_wheel_joint_controller:
+back_right_wheel_traction_joint_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbsherpa_hl_a_back_right_traction_wheel_joint
+  joint: rbsherpa_hl_back_right_wheel_traction_joint
 
 
 base_controller:
   type: omni_drive_controller/AckermannDriveController
   traction:
     front_right:
-      joint_name: rbsherpa_hl_a_front_right_traction_wheel_joint
+      joint_name: rbsherpa_hl_front_right_wheel_traction_joint
       max_speed: 20.0 # rad/s
     front_left:
-      joint_name: rbsherpa_hl_a_front_left_traction_wheel_joint
+      joint_name: rbsherpa_hl_front_left_wheel_traction_joint
       max_speed: 20.0 # rad/s
     back_right:
-      joint_name: rbsherpa_hl_a_back_right_traction_wheel_joint
+      joint_name: rbsherpa_hl_back_right_wheel_traction_joint
       max_speed: 20.0 # rad/s
     back_left:
-      joint_name: rbsherpa_hl_a_back_left_traction_wheel_joint
+      joint_name: rbsherpa_hl_back_left_wheel_traction_joint
       max_speed: 20.0 # rad/s
   steer:
     front_right:
-      joint_name: rbsherpa_hl_a_front_right_steer_wheel_joint
+      joint_name: rbsherpa_hl_front_right_wheel_steer_joint
       min_angle: -2.6 # rads
       max_angle: 2.6
     front_left:
-      joint_name: rbsherpa_hl_a_front_left_steer_wheel_joint
+      joint_name: rbsherpa_hl_front_left_wheel_steer_joint
       min_angle: -2.6 # rads
       max_angle: 2.6
   linear_speed_limit: 2.8
   linear_acceleration_limit: 2.0
   angular_speed_limit: 2.0
   angular_acceleration_limit: 2.0
-  odom_frame: rbsherpa_hl_a_odom
-  robot_base_frame: rbsherpa_hl_a_base_footprint
+  odom_frame: rbsherpa_hl_odom
+  robot_base_frame: rbsherpa_hl_base_footprint
   odom_broadcast_tf: true
   odom_topic: /rbsherpa_hl_a/odom
   wheel_base: 1.42 #from cad
@@ -66,14 +66,21 @@ joint_read_state_controller:
     type: joint_state_controller/JointStateController 
     publish_rate: 100.0
 
+base_steer_joint_trajectory_controller:
+   type: position_controllers/JointTrajectoryController
+   joints:
+     - rbsherpa_hl_front_right_wheel_steer_joint
+     - rbsherpa_hl_front_left_wheel_steer_joint
+
+
 # Settings for ros_control hardware interface
 hardware_interface:
   joints:
-     - rbsherpa_hl_a_front_right_steer_wheel_joint
-     - rbsherpa_hl_a_front_left_steer_wheel_joint
-     - rbsherpa_hl_a_back_right_steer_wheel_joint
-     - rbsherpa_hl_a_back_left_steer_wheel_joint
-     - rbsherpa_hl_a_front_right_traction_wheel_joint
-     - rbsherpa_hl_a_front_left_traction_wheel_joint
-     - rbsherpa_hl_a_back_right_traction_wheel_joint
-     - rbsherpa_hl_a_back_left_traction_wheel_joint
+     - rbsherpa_hl_front_right_wheel_steer_joint
+     - rbsherpa_hl_front_left_wheel_steer_joint
+     - rbsherpa_hl_back_right_wheel_steer_joint
+     - rbsherpa_hl_back_left_wheel_steer_joint
+     - rbsherpa_hl_front_right_wheel_traction_joint
+     - rbsherpa_hl_front_left_wheel_traction_joint
+     - rbsherpa_hl_back_right_wheel_traction_joint
+     - rbsherpa_hl_back_left_wheel_traction_joint

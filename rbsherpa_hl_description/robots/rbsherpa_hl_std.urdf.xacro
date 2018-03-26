@@ -12,10 +12,10 @@
   <xacro:include filename="$(find rbsherpa_hl_description)/urdf/bases/rbsherpa_hl_base.urdf.xacro" />
 
 	<!-- Import RBSHERPA steer wheels -->
-	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/steer_wheel.urdf.xacro" />
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/wheel_steer.urdf.xacro" />
 
 	<!-- Import RBSHERPA traction wheels -->
-	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/traction_wheel.urdf.xacro" />
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/wheel_traction.urdf.xacro" />
 
 	<!-- Import RBSHERPA structure-->
 	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/structures/structure.urdf.xacro" />
@@ -37,14 +37,14 @@
 	<xacro:property name="PI" value="3.1415926535897931"/>
 
 	<!-- Steer wheel parameters -->
-	<xacro:property name="steer_wheel_offset_x" value="0.6236" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
-	<xacro:property name="steer_wheel_offset_y" value="0.36063" />
-	<xacro:property name="steer_wheel_offset_z" value="0.28762" />
+	<xacro:property name="wheel_steer_offset_x" value="0.6236" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_steer_offset_y" value="0.36063" />
+	<xacro:property name="wheel_steer_offset_z" value="0.28762" />
 
 	<!-- Traction wheel parameters -->
-	<xacro:property name="traction_wheel_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
-	<xacro:property name="traction_wheel_offset_y" value="0.029" />
-	<xacro:property name="traction_wheel_offset_z" value="-0.28762" />
+	<xacro:property name="wheel_traction_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_traction_offset_y" value="0.029" />
+	<xacro:property name="wheel_traction_offset_z" value="-0.28762" />
 
 
 	<!-- *************** -->
@@ -66,38 +66,38 @@
   <xacro:macro name="rbsherpa_hl" params="prefix hq">
 
 		<!-- STEER WHEELS -->
-		<xacro:steer_wheel prefix="$(arg prefix)front_right_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-			<origin xyz="${steer_wheel_offset_x} -${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:steer_wheel>
+		<xacro:wheel_steer prefix="$(arg prefix)front_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="${wheel_steer_offset_x} -${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
 
-		<xacro:steer_wheel prefix="$(arg prefix)front_left_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-			<origin xyz="${steer_wheel_offset_x} ${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:steer_wheel>
+		<xacro:wheel_steer prefix="$(arg prefix)front_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="${wheel_steer_offset_x} ${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
 
-		<xacro:steer_wheel prefix="$(arg prefix)back_right_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-			<origin xyz="-${steer_wheel_offset_x} -${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:steer_wheel>
+		<xacro:wheel_steer prefix="$(arg prefix)back_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="-${wheel_steer_offset_x} -${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
 
-		<xacro:steer_wheel prefix="$(arg prefix)back_left_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
-			<origin xyz="-${steer_wheel_offset_x} ${steer_wheel_offset_y} ${steer_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:steer_wheel>
+		<xacro:wheel_steer prefix="$(arg prefix)back_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)">
+			<origin xyz="-${wheel_steer_offset_x} ${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
 
 		<!-- traction WHEELS -->
-		<xacro:traction_wheel prefix="$(arg prefix)front_right_traction" parent="$(arg prefix)front_right_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="${traction_wheel_offset_x} -${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 ${PI}"/>
-		</xacro:traction_wheel>
+		<xacro:wheel_traction prefix="$(arg prefix)front_right_wheel_traction" parent="$(arg prefix)front_right_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="${wheel_traction_offset_x} -${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:wheel_traction>
 
-		<xacro:traction_wheel prefix="$(arg prefix)front_left_traction" parent="$(arg prefix)front_left_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="${traction_wheel_offset_x} ${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:traction_wheel>
+		<xacro:wheel_traction prefix="$(arg prefix)front_left_wheel_traction" parent="$(arg prefix)front_left_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="${wheel_traction_offset_x} ${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_traction>
 
-		<xacro:traction_wheel prefix="$(arg prefix)back_right_traction" parent="$(arg prefix)back_right_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="-${traction_wheel_offset_x} -${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 ${PI}"/>
-		</xacro:traction_wheel>
+		<xacro:wheel_traction prefix="$(arg prefix)back_right_wheel_traction" parent="$(arg prefix)back_right_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="-${wheel_traction_offset_x} -${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:wheel_traction>
 
-		<xacro:traction_wheel prefix="$(arg prefix)back_left_traction" parent="$(arg prefix)back_left_steer_wheel_link" hq="$(arg hq)">
-			<origin xyz="-${traction_wheel_offset_x} ${traction_wheel_offset_y} ${traction_wheel_offset_z}" rpy="0 0 0"/>
-		</xacro:traction_wheel>
+		<xacro:wheel_traction prefix="$(arg prefix)back_left_wheel_traction" parent="$(arg prefix)back_left_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="-${wheel_traction_offset_x} ${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_traction>
 
 
 		<!-- SENSORS -->
