@@ -1,5 +1,5 @@
 /*
- * vulcano_base_pad
+ * rbsherpa_pad
  * Copyright (c) 2016, Robotnik Automation, SLL
  * All rights reserved.
  *
@@ -35,6 +35,8 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
 #include <geometry_msgs/Twist.h>
+#include <ackermann_msgs/AckermannDrive.h>
+
 #include <robotnik_msgs/ptz.h>
 // Not yet catkinized 9/2013
 // #include <sound_play/sound_play.h>
@@ -69,10 +71,10 @@
 #define PAN_MAX    3.13
 #define TILT_MAX   1.5708
 
-class VulcanoBasePad
+class RBSherpaPad
 {
 	public:
-		VulcanoBasePad();
+		RBSherpaPad();
 		void Update();
 
 	private:
@@ -86,10 +88,12 @@ class VulcanoBasePad
 		double l_scale_, a_scale_, l_scale_z_; 
 		//! It will publish into command velocity (for the robot) and the ptz_state (for the pantilt)
 		ros::Publisher vel_pub_;
+		ros::Publisher ack_pub_;
 		//! It will be suscribed to the joystick
 		ros::Subscriber pad_sub_;
 		//! Name of the topic where it will be publishing the velocity
 		std::string cmd_topic_vel_;
+		std::string ack_topic_vel_;
 		//! Name of the service where it will be modifying the digital outputs
 		std::string cmd_service_io_;
 		double current_vel;
@@ -157,7 +161,7 @@ class VulcanoBasePad
 };
 
 
-VulcanoBasePad::VulcanoBasePad():
+RBSherpaPad::RBSherpaPad():
 	linear_x_(1),
 	linear_y_(0),
 	angular_(2),
@@ -180,6 +184,7 @@ VulcanoBasePad::VulcanoBasePad():
 	pnh_.param("scale_linear", l_scale_, DEFAULT_SCALE_LINEAR);
 	pnh_.param("scale_linear_z", l_scale_z_, DEFAULT_SCALE_LINEAR_Z);
 	pnh_.param("cmd_topic_vel", cmd_topic_vel_, cmd_topic_vel_);
+	pnh_.param("ack_topic_vel", ack_topic_vel_, ack_topic_vel_);
 	pnh_.param("button_dead_man", dead_man_button_, dead_man_button_);
 	pnh_.param("button_speed_up", speed_up_button_, speed_up_button_);  //4 Thrustmaster
 	pnh_.param("button_speed_down", speed_down_button_, speed_down_button_); //5 Thrustmaster
@@ -194,12 +199,13 @@ VulcanoBasePad::VulcanoBasePad():
 
 
 	// KINEMATIC MODE 
+	kinematic_mode_ = 1;
+	pnh_.param("kinematic_mode", kinematic_mode_, kinematic_mode_);
 	pnh_.param("button_kinematic_mode", button_kinematic_mode_, button_kinematic_mode_);
 	pnh_.param("cmd_service_set_mode", cmd_set_mode_, cmd_set_mode_);
 	pnh_.param("cmd_service_home", cmd_home_, cmd_home_);
-	kinematic_mode_ = 1;
 
-	ROS_INFO("VulcanoBasePad num_of_buttons_ = %d", num_of_buttons_);	
+	ROS_INFO("RBSherpaPad num_of_buttons_ = %d", num_of_buttons_);	
 	for(int i = 0; i < num_of_buttons_; i++){
 		bRegisteredButtonEvent[i] = false;
 		ROS_INFO("bREG %d", i);
@@ -222,11 +228,15 @@ VulcanoBasePad::VulcanoBasePad():
 	  ROS_INFO("OUTPUT2 button %d", button_output_2_);*/	
 
 	// Publish through the node handle Twist type messages to the guardian_controller/command topic
-	vel_pub_ = pnh_.advertise<geometry_msgs::Twist>(cmd_topic_vel_, 1);
-
+	if (kinematic_mode_ == 1) {
+		vel_pub_ = pnh_.advertise<geometry_msgs::Twist>(cmd_topic_vel_, 1);
+	}
+	else {
+		ack_pub_ = pnh_.advertise<ackermann_msgs::AckermannDrive>(ack_topic_vel_, 1);
+	}
 	// Listen through the node handle sensor_msgs::Joy messages from joystick 
-	// (these are the references that we will sent to vulcano_base_controller/command)
-	pad_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &VulcanoBasePad::padCallback, this);
+	// (these are the references that we will sent to rbsherpa_controller/command)
+	pad_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &RBSherpaPad::padCallback, this);
 
 	// Request service to activate / deactivate digital I/O
 	set_digital_outputs_client_ = nh_.serviceClient<robotnik_msgs::set_digital_output>(cmd_service_io_);
@@ -260,14 +270,15 @@ VulcanoBasePad::VulcanoBasePad():
  *	\brief Updates the diagnostic component. Diagnostics
  *
  */
-void VulcanoBasePad::Update(){
+void RBSherpaPad::Update(){
 	updater_pad.update();
 }
 
 
-void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
+void RBSherpaPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
 	geometry_msgs::Twist vel;
+	ackermann_msgs::AckermannDrive ack;
 
 	vel.angular.x = 0.0;  vel.angular.y = 0.0; vel.angular.z = 0.0;
 	vel.linear.x = 0.0;   vel.linear.y = 0.0; vel.linear.z = 0.0;
@@ -276,7 +287,7 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 	// Actions dependant on dead-man button
 	if (joy->buttons[dead_man_button_] == 1) {
-		//ROS_ERROR("VulcanoBasePad::padCallback: DEADMAN button %d", dead_man_button_);
+		//ROS_ERROR("RBSherpaPad::padCallback: DEADMAN button %d", dead_man_button_);
 		// Set the current velocity level
 		if ( joy->buttons[speed_down_button_] == 1 ){
 
@@ -311,6 +322,8 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 
 		vel.linear.x = current_vel*l_scale_*joy->axes[linear_x_];
+		ack.speed = current_vel*l_scale_*joy->axes[linear_x_];
+		
 		if (kinematic_mode_ == 2) {
 			vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
 		}
@@ -328,21 +341,21 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				// Same angular velocity for the three axis
 				vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
 			} 
+			ack.steering_angle = current_vel*(a_scale_*joy->axes[angular_]);
 		}
 		else // no dead zone
 		{
 			vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
+			ack.steering_angle = current_vel*(a_scale_*joy->axes[angular_]);
 		}
-
-
 
 		if (joy->buttons[button_kinematic_mode_] == 1) {
 
 			if(!bRegisteredButtonEvent[button_kinematic_mode_]){
 				// Define mode (inc) - still coupled
 				kinematic_mode_ += 1;
-				if (kinematic_mode_ > 2) kinematic_mode_ = 1;
-				ROS_INFO("VulcanoBasePad::joyCallback: Kinematic Mode %d ", kinematic_mode_);
+				if (kinematic_mode_ > 3) kinematic_mode_ = 1;
+				ROS_INFO("RBSherpaPad::joyCallback: Kinematic Mode %d ", kinematic_mode_);
 				bRegisteredButtonEvent[button_kinematic_mode_] = true;
 			}
 		}else{
@@ -353,6 +366,8 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		else {
 			vel.angular.x = 0.0; vel.angular.y = 0.0; vel.angular.z = 0.0;
 			vel.linear.x = 0.0; vel.linear.y = 0.0; vel.linear.z = 0.0;
+			ack.speed = 0.0;
+			ack.steering_angle = 0.0;
 		}
 
 		sus_joy_freq->tick();	// Ticks the reception of joy events
@@ -361,7 +376,10 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		// Publish 
 		// Only publishes if it's enabled
 		if(bEnable){
+			if (kinematic_mode_ != 3)
 			vel_pub_.publish(vel);
+			if (kinematic_mode_ == 3)
+			ack_pub_.publish(ack);
 			pub_command_freq->tick();
 			last_command_ = true;
 		}
@@ -371,7 +389,14 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 			vel.angular.x = 0.0;  vel.angular.y = 0.0; vel.angular.z = 0.0;
 			vel.linear.x = 0.0;   vel.linear.y = 0.0; vel.linear.z = 0.0;
+			if (kinematic_mode_ != 3)
 			vel_pub_.publish(vel);
+
+			ack.speed = 0.0; ack.acceleration = 0.0; ack.jerk = 0.0;
+			ack.steering_angle = 0.0; ack.steering_angle_velocity = 0.0;
+
+			if (kinematic_mode_ == 3)
+			ack_pub_.publish(ack);
 			pub_command_freq->tick();
 			last_command_ = false;
 		}
@@ -380,15 +405,15 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 int main(int argc, char** argv)
 {
-	ros::init(argc, argv, "vulcano_base_pad");
-	VulcanoBasePad vulcano_base_pad;
+	ros::init(argc, argv, "rbsherpa_pad");
+	RBSherpaPad rbsherpa_pad;
 
 	// ros::Rate r(200.0);  // 200 for reading different joint_states topic sources
 	ros::Rate r(50.0);
 
 	while( ros::ok() ){
 		// UPDATING DIAGNOSTICS
-		vulcano_base_pad.Update();
+		rbsherpa_pad.Update();
 		ros::spinOnce();
 		r.sleep();
 	}

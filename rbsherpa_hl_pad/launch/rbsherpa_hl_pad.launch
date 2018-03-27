@@ -7,6 +7,8 @@
   <node name="base_pad" pkg="rbsherpa_hl_pad" type="rbsherpa_hl_pad" output="screen">
     <!-- Parameters -->
     <param name="cmd_topic_vel" value="cmd_vel" type="string"/>
+    <param name="ack_topic_vel" value="/ack_vel" type="string"/>
+    
     <rosparam command="load" file="$(find rbsherpa_hl_pad)/config/base_ps4.yaml" />
   </node> 
   <node name="base_twist_mux" pkg="twist_mux" type="twist_mux" required="true" >
