@@ -57,9 +57,9 @@
 	<xacro:rbsherpa_hl_base prefix="$(arg prefix)" publish_bf="true" hq="$(arg hq)" />
 
 	<!-- Structure -->
-	<!--xacro:structure prefix="$(arg prefix)" parent="$(arg prefix)base_link">
+	<xacro:structure prefix="$(arg prefix)" parent="$(arg prefix)base_link">
 		<origin xyz="0.4785 0.01 2.05265" rpy="0 0 0"/>
-	</xacro:structure-->
+	</xacro:structure>
 
 	<!--xacro:gazebo_colors prefix="$(arg prefix)"/-->
 

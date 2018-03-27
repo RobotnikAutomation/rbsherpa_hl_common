@@ -2,6 +2,7 @@
 <robot name="rbsherpa_structure" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="deg2rad" value="0.01745329251"/>
 
   <xacro:macro name="structure" params="prefix parent *origin">
 
@@ -69,6 +70,229 @@
       </inertial>
 
     </link>
+
+        <!-- PAN TILT BASE -->
+    <joint name="${prefix}torso_pantilt_base_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <parent link="${prefix}structure_link"/>
+      <!--<parent link="${prefix}torso_base_link"/>-->
+      <child link="${prefix}torso_pantilt_base_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+    
+    <link name="${prefix}torso_pantilt_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/base.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/base.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+
+    <!-- PAN JOINT/LINK -->
+    <joint name="${prefix}torso_pantilt_pan_base_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <parent link="${prefix}torso_pantilt_base_link"/>
+      <child link="${prefix}torso_pantilt_pan_base_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+    
+    <link name="${prefix}torso_pantilt_pan_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+    
+    <joint name="${prefix}torso_pantilt_pan_joint" type="revolute">
+      <origin xyz="0.0 0.0 0.111" rpy="0 0 0"/>
+      <parent link="${prefix}torso_pantilt_pan_base_link"/>
+      <child link="${prefix}torso_pantilt_pan_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-360*deg2rad}" upper="${360*deg2rad}" effort="100" velocity="100"/>
+      <dynamics friction="1000" damping="1000"/>
+    </joint>
+	
+
+    
+    <link name="${prefix}torso_pantilt_pan_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pan.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pan.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+    
+    
+    <!-- TILT JOINT/LINK -->
+    <joint name="${prefix}torso_pantilt_tilt_joint" type="revolute">
+      <origin xyz="0.0 -0.027 0.0" rpy="${-90*deg2rad} 0 0"/>
+      <parent link="${prefix}torso_pantilt_pan_link"/>
+      <child link="${prefix}torso_pantilt_tilt_base_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-360*deg2rad}" upper="${360*deg2rad}" effort="100" velocity="100"/>
+      <dynamics friction="1000" damping="1000"/>
+    </joint>
+	
+
+    
+    <link name="${prefix}torso_pantilt_tilt_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+    
+    <joint name="${prefix}torso_pantilt_tilt_support_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${90*deg2rad} 0 0"/>
+      <parent link="${prefix}torso_pantilt_tilt_base_link"/>
+      <child link="${prefix}torso_pantilt_tilt_support_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+    
+    <link name="${prefix}torso_pantilt_tilt_support_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt_support.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt_support.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+    
+    <joint name="${prefix}torso_pantilt_tilt_fixed_joint" type="fixed">
+      <!--<origin xyz="0.0 0.027 0.027" rpy="0 0 0"/>-->
+      <origin xyz="0.0 -0.027 0.027" rpy="${90*deg2rad} 0 0"/>
+      <parent link="${prefix}torso_pantilt_tilt_base_link"/>
+      <child link="${prefix}torso_pantilt_tilt_link"/>
+    </joint>
+    
+    <link name="${prefix}torso_pantilt_tilt_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+    
+    <joint name="${prefix}torso_pantilt_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.003" rpy="0 0 0"/>
+      <parent link="${prefix}torso_pantilt_tilt_link"/>
+      <child link="${prefix}torso_pantilt_link"/>
+    </joint>
+    
+    <link name="${prefix}torso_pantilt_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pantilt.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pantilt.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+    
 
   </xacro:macro>
 
