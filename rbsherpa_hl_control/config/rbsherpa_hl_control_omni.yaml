@@ -49,20 +49,20 @@ base_controller:
   steer:
     front_right:
       joint_name: rbsherpa_hl_front_right_wheel_steer_joint
-      min_angle: -2.6 # rads
-      max_angle: 2.6
+      min_angle: -3.1 # rads
+      max_angle: 3.1
     front_left:
       joint_name: rbsherpa_hl_front_left_wheel_steer_joint
-      min_angle: -2.6 # rads
-      max_angle: 2.6
+      min_angle: -3.1 # rads
+      max_angle: 3.1
     back_right:
       joint_name: rbsherpa_hl_back_right_wheel_steer_joint
-      min_angle: -2.6 # rads
-      max_angle: 2.6
+      min_angle: -3.1 # rads
+      max_angle: 3.1
     back_left:
       joint_name: rbsherpa_hl_back_left_wheel_steer_joint
-      min_angle: -2.6 # rads
-      max_angle: 2.6
+      min_angle: -3.1 # rads
+      max_angle: 3.1
   linear_speed_limit: 2.8
   linear_acceleration_limit: 2.0
   angular_speed_limit: 2.0
@@ -80,6 +80,10 @@ base_controller:
 
 joint_read_state_controller:
     type: joint_state_controller/JointStateController 
+    publish_rate: 100.0
+
+joint_read_command_controller:
+    type: joint_read_command_controller/JointReadCommandController 
     publish_rate: 100.0
 
 # Settings for ros_control hardware interface
