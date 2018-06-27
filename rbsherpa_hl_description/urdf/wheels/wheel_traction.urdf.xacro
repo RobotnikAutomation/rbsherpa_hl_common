@@ -31,7 +31,7 @@
 				<xacro:if value="${hq}">
 		      <origin xyz="0 0 0" rpy="0 0 0" />
 		      <geometry>
-						<mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_wheel_traction.dae" />
+						<mesh filename="package://rbsherpa_hl_description/meshes/wheels/rbsherpa_hl_traction_wheel.dae" />
 		      </geometry>
 				</xacro:if>
 				<xacro:unless value="${hq}">
