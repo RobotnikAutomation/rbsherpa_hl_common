@@ -27,6 +27,7 @@ button_kinematic_mode: 7
 cmd_service_set_mode: set_mode
 cmd_service_home:  home
 kinematic_mode: 3 # 1 holonomic, 2 differential, 3 ackermann
+robot_model: omni
 joystick_dead_zone: "true" 
 delta_angle: 0.15
 
