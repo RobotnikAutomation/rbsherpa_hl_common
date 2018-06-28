@@ -2,8 +2,9 @@
 <launch>
 
     <arg name="prefix" default="rbsherpa_hl_"/>
+    <arg name="model" value="$(env ROBOT_MODEL)" />
     
-    <rosparam file="$(find rbsherpa_hl_control)/config/rbsherpa_hl_control_ackermann.yaml" command="load"/>
+    <rosparam file="$(find rbsherpa_hl_control)/config/rbsherpa_hl_control_$(arg model).yaml" command="load"/>
       <param name="base_controller/steer/back_left/joint_name" value="$(arg prefix)back_left_wheel_steer_joint"/>
       <param name="base_controller/steer/back_right/joint_name" value="$(arg prefix)back_right_wheel_steer_joint"/>
       <param name="base_controller/steer/front_right/joint_name" value="$(arg prefix)front_right_wheel_steer_joint"/>
