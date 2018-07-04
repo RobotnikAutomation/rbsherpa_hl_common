@@ -25,7 +25,7 @@
       </link>
 
       <joint name="${prefix}base_footprint_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" />
         <parent link="${prefix}base_footprint"/>
         <child link="${prefix}base_link" />
       </joint>
@@ -47,9 +47,9 @@
 
       <visual>
         <xacro:if value="${hq}">
-          <origin xyz="0 0 0" rpy="0 0 0" />
+          <origin xyz="0 0 0" rpy="0 0 3.1415" />
           <geometry>
-            <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/>
+            <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base_v2.dae"/>
           </geometry>
         </xacro:if>
         <xacro:unless value="${hq}">

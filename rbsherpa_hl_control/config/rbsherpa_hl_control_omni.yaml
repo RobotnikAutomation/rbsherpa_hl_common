@@ -32,7 +32,7 @@ back_right_wheel_steer_joint_controller:
 
 
 base_controller:
-  type: omni_drive_controller/OmniDriveController
+  type: rbsherpa_hl_omni_controller/RbSherpaHlOmniController
   traction:
     front_right:
       joint_name: rbsherpa_hl_front_right_wheel_traction_joint
@@ -71,8 +71,8 @@ base_controller:
   robot_base_frame: rbsherpa_hl_base_footprint
   odom_broadcast_tf: true
   odom_topic: /rbsherpa_hl_a/odom
-  wheel_base: 1.42 #from cad
-  track_width: 0.72 #from cad
+  wheel_base: 1.244 #from cad # 1.244 or 1.42
+  track_width: 0.734 #from cad # 0.734 or 0.72
   wheel_diameter: 0.3684 #  from cad
   cmd_watchdog_duration: 0.2
   odom_publish_frequency: 100

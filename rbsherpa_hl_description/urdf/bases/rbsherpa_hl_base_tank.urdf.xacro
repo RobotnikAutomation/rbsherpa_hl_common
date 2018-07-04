@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot name="rbsherpa_hl_base_tank" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="rbsherpa_hl_base_tank" params="prefix publish_bf hq">
+
+    <!-- Robot mechanical and motor parameters -->
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="wheel_width" value="0.14" />
+
+    <xacro:macro name="cuboid_inertia" params="m h w d">
+      <inertia  ixx="${m*(h*h+d*d)/12}" ixy = "0" ixz = "0"
+                iyy="${m*(w*w+d*d)/12}" iyz = "0"
+                izz="${m*(w*w+h*h)/12}" />
+    </xacro:macro>
+
+    <!-- BASE FOOTPRINT -->
+    <xacro:if value="${publish_bf}">
+      <link name="${prefix}base_footprint">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <box size="0.001 0.001 0.001" />
+            </geometry>
+        </visual>
+      </link>
+
+      <joint name="${prefix}base_footprint_joint" type="fixed">
+        <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" />
+        <parent link="${prefix}base_footprint"/>
+        <child link="${prefix}base_link" />
+      </joint>
+    </xacro:if>
+
+    <!-- BASE_LINK -->
+    <link name="${prefix}base_link">
+      <inertial>
+        <mass value="381.91147" />
+        <xacro:if value="${hq}">
+          <origin xyz="0.01210 0.00057 0.41465" />
+          <inertia  ixx="66.029446" ixy="-0.05457547"  ixz="9.08271"  iyy="97.833795"  iyz="0.0012187052"  izz="79.714477" />
+        </xacro:if>
+        <xacro:unless value="${hq}">
+          <origin xyz="0 0 0.5" />
+          <cuboid_inertia  m="381.91147" h="0.925" w="1.55" d="0.5" />
+        </xacro:unless>
+      </inertial>
+
+      <visual>
+        <xacro:if value="${hq}">
+          <origin xyz="0 0 0" rpy="0 0 3.1415" />
+          <geometry>
+            <mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base_tank.dae"/>
+          </geometry>
+        </xacro:if>
+        <xacro:unless value="${hq}">
+          <origin xyz="0 0 0.5" rpy="0 0 0" />
+          <geometry>
+            <box size="1.55 0.925 0.5" />
+          </geometry>
+        </xacro:unless>
+
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0.5" rpy="0 0 0 " />
+        <geometry>
+          <!--mesh filename="package://rbsherpa_hl_description/meshes/bases/rbsherpa_hl_base.dae"/-->
+          <box size="1.55 0.925 0.5" />
+        </geometry>
+      </collision>
+
+    </link>
+
+  </xacro:macro>
+
+</robot>

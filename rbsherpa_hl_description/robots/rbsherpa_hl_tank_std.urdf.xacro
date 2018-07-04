@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<robot name="rbsherpa_hl" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+	<!-- ***************** -->
+	<!-- Imported elements -->
+	<!-- ***************** -->
+
+	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+
+	<!-- Import RBSHERPA base elements -->
+  <xacro:include filename="$(find rbsherpa_hl_description)/urdf/bases/rbsherpa_hl_base_tank.urdf.xacro" />
+
+	<!-- Import RBSHERPA steer wheels -->
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/wheel_steer.urdf.xacro" />
+
+	<!-- Import RBSHERPA traction wheels -->
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/wheels/wheel_traction.urdf.xacro" />
+
+	<!-- Import RBSHERPA structure-->
+	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/pantilt/pan_tilt.urdf.xacro" />
+
+  <!-- Import all available sensors -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+
+  <xacro:arg name="prefix" default="rbsherpa_hl"/>
+  <xacro:arg name="hq" default="true"/>
+  <xacro:arg name="ros_planar_move_plugin" default="true"/>
+
+  <!-- Import Gazebo Stuff -->
+  <xacro:include filename="$(find rbsherpa_hl_description)/urdf/common.gazebo.xacro" />
+  <xacro:include filename="$(find rbsherpa_hl_description)/urdf/bases/rbsherpa_hl_base.gazebo.xacro" />
+
+	<!-- ***************** -->
+	<!-- Global parameters -->
+	<!-- ***************** -->
+	<xacro:property name="PI" value="3.1415926535897931"/>
+
+	<!-- Steer wheel parameters -->
+	<xacro:property name="wheel_steer_offset_x" value="0.622" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_steer_offset_y" value="0.367" />
+	<xacro:property name="wheel_steer_offset_z" value="0.285" />
+
+	<!-- Traction wheel parameters -->
+	<xacro:property name="wheel_traction_offset_x" value="0.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_traction_offset_y" value="0.03" />
+	<xacro:property name="wheel_traction_offset_z" value="-0.285" />
+
+
+	<!-- *************** -->
+	<!-- Robots Elements -->
+	<!-- *************** -->
+
+	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
+
+	<!-- RBSherpa base -->
+	<xacro:rbsherpa_hl_base_tank prefix="$(arg prefix)" publish_bf="true" hq="$(arg hq)" />
+
+	<!-- Structure -->
+
+	<xacro:pantilt prefix="$(arg prefix)" parent="$(arg prefix)base_link" hq="$(arg hq)">
+	</xacro:pantilt>
+
+	<!--xacro:gazebo_colors prefix="$(arg prefix)"/-->
+
+  <xacro:macro name="rbsherpa_hl" params="prefix hq">
+
+		<!-- STEER WHEELS -->
+		<xacro:wheel_steer prefix="$(arg prefix)front_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="revolute">
+			<origin xyz="${wheel_steer_offset_x} -${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
+
+		<xacro:wheel_steer prefix="$(arg prefix)front_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="revolute">
+			<origin xyz="${wheel_steer_offset_x} ${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
+
+		<xacro:wheel_steer prefix="$(arg prefix)back_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="fixed">
+			<origin xyz="-${wheel_steer_offset_x} -${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
+
+		<xacro:wheel_steer prefix="$(arg prefix)back_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="fixed">
+			<origin xyz="-${wheel_steer_offset_x} ${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_steer>
+
+
+		<!-- TRACTION WHEELS -->
+		<xacro:wheel_traction prefix="$(arg prefix)front_right_wheel_traction" parent="$(arg prefix)front_right_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="${wheel_traction_offset_x} -${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:wheel_traction>
+
+		<xacro:wheel_traction prefix="$(arg prefix)front_left_wheel_traction" parent="$(arg prefix)front_left_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="${wheel_traction_offset_x} ${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_traction>
+
+		<xacro:wheel_traction prefix="$(arg prefix)back_right_wheel_traction" parent="$(arg prefix)back_right_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="-${wheel_traction_offset_x} -${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 ${PI}"/>
+		</xacro:wheel_traction>
+
+		<xacro:wheel_traction prefix="$(arg prefix)back_left_wheel_traction" parent="$(arg prefix)back_left_wheel_steer_link" hq="$(arg hq)">
+			<origin xyz="-${wheel_traction_offset_x} ${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 0"/>
+		</xacro:wheel_traction>
+
+
+		<!-- SENSORS -->
+	    <!--xacro:sensor_imu prefix="imu" parent="${prefix}base_link">
+	          <origin xyz="-0.40 0.06 0.75" rpy="0 0 0"/>
+		</xacro:sensor_imu-->
+
+		<xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
+			<origin xyz="0.835 -0.55472 0.221" rpy="${PI} 0 ${-PI/4.0}"/>
+		</xacro:sensor_sick_s300>
+
+		<xacro:sensor_sick_s300 prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser">
+			<origin xyz="-0.831 0.518 0.221" rpy="${PI} 0 ${3.0*PI/4.0}"/>
+		</xacro:sensor_sick_s300>
+
+		<xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)velodyne" parent="$(arg prefix)base_link" prefix_topic="velodyne"> 
+			<origin xyz="0.869 0 0.248" rpy="0 0 0"/>
+		</xacro:sensor_velodyne_vlp16>
+
+	</xacro:macro>
+
+	<!-- Gazebo ros control plugins -->
+	<xacro:ros_control/>
+
+	<xacro:if value="$(arg ros_planar_move_plugin)">
+		<xacro:omni_steering prefix="$(arg prefix)" publish_tf="false"/>
+	</xacro:if>
+
+	<xacro:rbsherpa_hl prefix="$(arg prefix)" hq="false"/>
+
+</robot>

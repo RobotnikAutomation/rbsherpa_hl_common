@@ -84,7 +84,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/base.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/base.stl"/>
         </geometry>
        <material name="lightgrey">
          <color rgba="0.3 0.3 0.3 1"/>
@@ -93,7 +93,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/base.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/base.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -115,7 +115,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/dynamixel_l42.stl"/>
         </geometry>
        <material name="lightgrey">
          <color rgba="0.3 0.3 0.3 1"/>
@@ -124,7 +124,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/dynamixel_l42.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -149,7 +149,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pan.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/pan.stl"/>
         </geometry>
        <material name="lightgrey">
          <color rgba="0.3 0.3 0.3 1"/>
@@ -158,7 +158,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pan.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/pan.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -185,7 +185,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/dynamixel_l42.stl"/>
         </geometry>
        <material name="lightgrey">
          <color rgba="0.3 0.3 0.3 1"/>
@@ -194,7 +194,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/dynamixel_l42.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/dynamixel_l42.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -215,7 +215,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt_support.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/tilt_support.stl"/>
         </geometry>
        <material name="lightgrey">
          <color rgba="0.3 0.3 0.3 1"/>
@@ -224,7 +224,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt_support.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/tilt_support.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -245,7 +245,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/tilt.stl"/>
         </geometry>
        <material name="lightgrey">
          <color rgba="0.3 0.3 0.3 1"/>
@@ -254,7 +254,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/tilt.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/tilt.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -274,7 +274,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pantilt.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/pantilt.stl"/>
         </geometry>
        <material name="lightgrey">
          <color rgba="0.3 0.3 0.3 1"/>
@@ -283,7 +283,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/pantilt/pantilt.stl"/>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/pantilt.stl"/>
         </geometry>
       </collision>
       <inertial>

@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<robot name="rbsherpa_structure" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="deg2rad" value="0.01745329251"/>
+
+  <xacro:macro name="elevator_structure" params="prefix parent *origin">
+
+	<!--fixed joint -->
+    <joint name="${prefix}structure_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}structure_link"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <link name="${prefix}structure_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+		      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_structure.dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+		    <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_structure.stl" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="14.92765" />
+        <origin xyz="-0.0195 -0.01 -0.750" />
+        <inertia  ixx="2.80754349924" ixy = "0" ixz = "0"
+                  iyy="2.80407121984" iyz = "0"
+                  izz="0.01374410335" />
+      </inertial>
+    </link>
+
+    <!-- Elevator structure -->
+    <joint name="${prefix}torso_elevator_joint" type="prismatic">
+      <parent link="${prefix}structure_link"/>
+      <origin xyz="0.05 0.0 0" rpy="0 0 0" />
+      <child link="${prefix}torso_elevator_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="0.0" upper="0.5" effort="1.0" velocity="0.5"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <link name="${prefix}torso_elevator_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+		      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_elevator.dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+		    <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_elevator.stl" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="14.92765" />
+        <origin xyz="-0.0195 -0.01 -0.750" />
+        <inertia  ixx="2.80754349924" ixy = "0" ixz = "0"
+                  iyy="2.80407121984" iyz = "0"
+                  izz="0.01374410335" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}torso_pantilt_pan_joint" type="continuous">
+      <parent link="${prefix}torso_elevator_link"/>
+      <origin xyz="0.0 0.0 1.37" rpy="0 0 0" />
+      <child link="${prefix}torso_pantilt_pan_link"/>
+      <axis xyz="0 0 1"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <link name="${prefix}torso_pantilt_pan_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+		      <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_pan_structure.dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+		    <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_pan_structure.stl" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="14.92765" />
+        <origin xyz="-0.0195 -0.01 -0.750" />
+        <inertia  ixx="2.80754349924" ixy = "0" ixz = "0"
+                  iyy="2.80407121984" iyz = "0"
+                  izz="0.01374410335" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}torso_beacon_joint" type="fixed">
+      <parent link="${prefix}torso_pantilt_pan_link"/>
+      <origin xyz="0.384 0.0 -0.141" rpy="0 0 0" />
+      <child link="${prefix}torso_beacon_link"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+    <link name="${prefix}torso_beacon_link">
+
+    </link>
+
+    <joint name="${prefix}gun_tilt_joint" type="revolute">
+      <parent link="${prefix}torso_pantilt_pan_link"/>
+      <origin xyz="-0.42 -0.015 0.23" rpy="0 0 ${M_PI}" />
+      <child link="${prefix}gun_tilt_link"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="0.0" upper="-0.57" effort="1.0" velocity="0.5"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+    <link name="${prefix}gun_tilt_link">
+       <visual>
+        <origin xyz="0 0.045 0" rpy="0 0 ${M_PI}"/>
+        <geometry>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/tilt_dynamixel.stl"/>
+        </geometry>
+       <material name="lightgrey">
+         <color rgba="0.3 0.3 0.3 1"/>
+       </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://rbsherpa_hl_description/meshes/pantilt/tilt_dynamixel.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="5"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+  
+    <joint name="${prefix}gun_joint" type="fixed">
+      <parent link="${prefix}gun_tilt_link"/>
+      <origin xyz="0.0 -0.03 0.0" rpy="0 0 0" />
+      <child link="${prefix}gun_link"/>
+    </joint>
+    <link name="${prefix}gun_link">
+      
+    </link>
+
+  </xacro:macro>
+
+</robot>
