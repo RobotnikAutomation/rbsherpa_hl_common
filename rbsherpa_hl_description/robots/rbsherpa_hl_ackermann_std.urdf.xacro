@@ -59,6 +59,7 @@
 	<!-- Structure -->
 
 	<xacro:pantilt prefix="$(arg prefix)" parent="$(arg prefix)base_link" hq="$(arg hq)">
+	   <origin xyz="1.089 0 0.398" rpy="0 0 0"/>
 	</xacro:pantilt>
 
 	<!--xacro:gazebo_colors prefix="$(arg prefix)"/-->
@@ -117,6 +118,10 @@
 		<xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)velodyne" parent="$(arg prefix)base_link" prefix_topic="velodyne"> 
 			<origin xyz="0.869 0 0.248" rpy="0 0 0"/>
 		</xacro:sensor_velodyne_vlp16>
+
+		<xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" > <!-- prefix_topic="gps" -->
+			<origin xyz="0.809 0 1.02" rpy="0 0 0"/>
+		</xacro:sensor_gps>
 
 	</xacro:macro>
 

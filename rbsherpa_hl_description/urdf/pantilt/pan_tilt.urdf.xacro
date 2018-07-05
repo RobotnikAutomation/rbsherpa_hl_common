@@ -2,11 +2,18 @@
 <robot name="pantilt" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931"/>
 
-  <xacro:macro name="pantilt" params="prefix parent hq">
- 
-    <joint name="${prefix}torso_pantilt_pan_joint" type="revolute">
-      <origin xyz="-0.547 0.0 1.32" rpy="0 0 0"/>
+  <xacro:macro name="pantilt" params="prefix parent hq *origin">
+
+    <joint name="${prefix}torso_pantilt_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
+      <child link="${prefix}torso_pantilt_base_link"/>
+    </joint>
+ 
+    <link name="${prefix}torso_pantilt_base_link"/>
+    
+    <joint name="${prefix}torso_pantilt_pan_joint" type="revolute">
+      <parent link="${prefix}torso_pantilt_base_link"/>
       <child link="${prefix}torso_pantilt_pan_link"/>
       <axis xyz="0 0 1"/>
       <limit lower="-0.95" upper="0.95" effort="100" velocity="100"/>
