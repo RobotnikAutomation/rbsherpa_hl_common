@@ -67,19 +67,19 @@
   <xacro:macro name="rbsherpa_hl" params="prefix hq">
 
 		<!-- STEER WHEELS -->
-		<xacro:wheel_steer prefix="$(arg prefix)front_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="revolute">
+		<xacro:wheel_steer prefix="$(arg prefix)front_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="revolute" transmission="true">
 			<origin xyz="${wheel_steer_offset_x} -${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
 		</xacro:wheel_steer>
 
-		<xacro:wheel_steer prefix="$(arg prefix)front_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="revolute">
+		<xacro:wheel_steer prefix="$(arg prefix)front_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="revolute" transmission="true">
 			<origin xyz="${wheel_steer_offset_x} ${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
 		</xacro:wheel_steer>
 
-		<xacro:wheel_steer prefix="$(arg prefix)back_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="fixed">
+		<xacro:wheel_steer prefix="$(arg prefix)back_right_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="fixed" transmission="false">
 			<origin xyz="-${wheel_steer_offset_x} -${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
 		</xacro:wheel_steer>
 
-		<xacro:wheel_steer prefix="$(arg prefix)back_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="fixed">
+		<xacro:wheel_steer prefix="$(arg prefix)back_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="fixed" transmission="false">
 			<origin xyz="-${wheel_steer_offset_x} ${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
 		</xacro:wheel_steer>
 

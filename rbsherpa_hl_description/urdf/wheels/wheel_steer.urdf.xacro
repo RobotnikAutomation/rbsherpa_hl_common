@@ -14,7 +14,7 @@
               izz="${m*(3*r*r+h*h)/12}" />
   </xacro:macro>
 
-  <xacro:macro name="wheel_steer" params="prefix parent *origin type hq">
+  <xacro:macro name="wheel_steer" params="prefix parent *origin type hq transmission">
 
     <joint name="${prefix}_joint" type="${type}">
       <parent link="${parent}"/>
@@ -64,8 +64,10 @@
 
     </link>
 
-    <xacro:wheel_steer_transmission prefix="${prefix}" />
-
+    <xacro:if value="${transmission}">
+      <xacro:wheel_steer_transmission prefix="${prefix}" />
+    </xacro:if>
+    
   </xacro:macro>
 
 </robot>
