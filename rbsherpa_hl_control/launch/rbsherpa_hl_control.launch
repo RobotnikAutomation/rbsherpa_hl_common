@@ -35,9 +35,10 @@
     </group>
 
     <group if="$(arg sim)">
-      <rosparam file="$(find rbsherpa_hl_control)/config/rbsherpa_hl_control_omni_sim.yaml" command="load"/>
+      <rosparam file="$(find rbsherpa_hl_control)/config/rbsherpa_hl_control_$(arg model)_sim.yaml" command="load"/>
 
       	<!-- load the planar ros controllers by urdf -->
+        <!-- Controller spawner for omni model -->
         <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
               output="screen" args="		  
               elevator_structure_controller
@@ -49,6 +50,17 @@
               joint_read_state_controller 
           ">
         </node>
+
+        <!-- Controller spawner for ackermann model -->
+        <!--
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+              output="screen" args="		  
+              pantilt_pan_controller
+              pantilt_tilt_controller
+              joint_read_state_controller 
+          ">
+        </node>
+        -->
 
     </group>
 </launch>
