@@ -6,6 +6,14 @@
 
   <xacro:macro name="elevator_structure" params="prefix parent *origin">
 
+
+   <xacro:macro name="solid_cuboid_inertia" params="m h d w">
+    <inertia  ixx="${(m*(h*h+d*d))/12}" ixy = "0" ixz = "0"
+              iyy="${(m*(w*w+d*d))/12}" iyz = "0"
+              izz="${(m*(w*w+h*h))/12}"
+    /> 
+   </xacro:macro>
+
 	<!--fixed joint -->
     <joint name="${prefix}structure_joint" type="fixed">
       <parent link="${parent}"/>
@@ -29,11 +37,9 @@
       </collision>
 
       <inertial>
-        <mass value="14.92765" />
-        <origin xyz="-0.0195 -0.01 -0.750" />
-        <inertia  ixx="2.80754349924" ixy = "0" ixz = "0"
-                  iyy="2.80407121984" iyz = "0"
-                  izz="0.01374410335" />
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
       </inertial>
     </link>
 
@@ -43,7 +49,7 @@
       <origin xyz="0.05 0.0 0" rpy="0 0 0" />
       <child link="${prefix}torso_elevator_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="0.0" upper="0.5" effort="1.0" velocity="0.5"/>
+      <limit lower="0.0" upper="0.5" effort="1.0" velocity="0.07"/>
       <xacro:insert_block name="origin" />
     </joint>
 
@@ -61,21 +67,29 @@
 			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_elevator.stl" />
         </geometry>
       </collision>
-
       <inertial>
-        <mass value="14.92765" />
-        <origin xyz="-0.0195 -0.01 -0.750" />
-        <inertia  ixx="2.80754349924" ixy = "0" ixz = "0"
-                  iyy="2.80407121984" iyz = "0"
-                  izz="0.01374410335" />
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
       </inertial>
     </link>
+    <transmission name="${prefix}torso_elevator_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${prefix}torso_elevator_joint">
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${prefix}torso_elevator_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
 
-    <joint name="${prefix}torso_pantilt_pan_joint" type="continuous">
+    <joint name="${prefix}torso_pantilt_pan_joint" type="revolute">
       <parent link="${prefix}torso_elevator_link"/>
       <origin xyz="0.0 0.0 1.37" rpy="0 0 0" />
       <child link="${prefix}torso_pantilt_pan_link"/>
       <axis xyz="0 0 1"/>
+      <limit lower="-3.14" upper="3.14" effort="1.0" velocity="0.1"/>
       <xacro:insert_block name="origin" />
     </joint>
 
@@ -93,15 +107,23 @@
 			    <mesh filename="package://rbsherpa_hl_description/meshes/structure/rbsherpa_hl_pan_structure.stl" />
         </geometry>
       </collision>
-
       <inertial>
-        <mass value="14.92765" />
-        <origin xyz="-0.0195 -0.01 -0.750" />
-        <inertia  ixx="2.80754349924" ixy = "0" ixz = "0"
-                  iyy="2.80407121984" iyz = "0"
-                  izz="0.01374410335" />
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
       </inertial>
     </link>
+
+    <transmission name="${prefix}torso_pantilt_pan_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${prefix}torso_pantilt_pan_joint">
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${prefix}torso_pantilt_pan_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
 
     <joint name="${prefix}torso_beacon_joint" type="fixed">
       <parent link="${prefix}torso_pantilt_pan_link"/>
@@ -118,7 +140,7 @@
       <origin xyz="-0.42 -0.015 0.23" rpy="0 0 ${M_PI}" />
       <child link="${prefix}gun_tilt_link"/>
       <axis xyz="0 1 0"/>
-      <limit lower="0.0" upper="-0.57" effort="1.0" velocity="0.5"/>
+      <limit lower="-0.57" upper="0.1" effort="1.0" velocity="0.5"/>
       <xacro:insert_block name="origin" />
     </joint>
     <link name="${prefix}gun_tilt_link">
@@ -138,11 +160,22 @@
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="5"/>
-        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
-      </inertial>
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+      </inertial> 
     </link>
+    
+    <transmission name="${prefix}gun_tilt_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${prefix}gun_tilt_joint">
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${prefix}gun_tilt_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
   
     <joint name="${prefix}gun_joint" type="fixed">
       <parent link="${prefix}gun_tilt_link"/>

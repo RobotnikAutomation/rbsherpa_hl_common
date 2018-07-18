@@ -5,6 +5,13 @@
 
   <xacro:macro name="gimbal" params="prefix parent *origin">
 
+    <xacro:macro name="solid_cuboid_inertia" params="m h d w">
+    <inertia  ixx="${(m*(h*h+d*d))/12}" ixy = "0" ixz = "0"
+              iyy="${(m*(w*w+d*d))/12}" iyz = "0"
+              izz="${(m*(w*w+h*h))/12}"
+    /> 
+    </xacro:macro>
+    
     <!-- gimbal base -->
     <joint name="${prefix}gimbal_base_joint" type="fixed">
       <parent link="${parent}"/>
@@ -13,6 +20,24 @@
       <xacro:insert_block name="origin" />
     </joint>
     <link name="${prefix}gimbal_base_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.05" length="0.05"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+      </inertial>
     </link>
 
     <joint name="${prefix}gimbal_yaw_joint" type="revolute">
@@ -20,38 +45,91 @@
       <origin xyz="0.0 0.0 -0.097" rpy="0 0 0" />
       <child link="${prefix}gimbal_yaw_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.5"/>
+      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.2"/>
     </joint>
     <link name="${prefix}gimbal_yaw_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.05" length="0.05"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+      </inertial>
     </link>
 
-    <!--joint name="${prefix}gimbal_first_axis_joint" type="fixed">
-      <parent link="${prefix}gimbal_yaw_link"/>
-      <origin xyz="-0.072 0.0 -0.026" rpy="0 0 0" />
-      <child link="${prefix}gimbal_first_axis_link"/>
-    </joint>
-    <link name="${prefix}gimbal_first_axis_link">
-    </link-->
+    <transmission name="${prefix}gimbal_yaw_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${prefix}gimbal_yaw_joint">
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${prefix}gimbal_yaw_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
 
     <joint name="${prefix}gimbal_roll_joint" type="revolute">
       <parent link="${prefix}gimbal_yaw_link"/>
       <origin xyz="-0.102 0.0 -0.200" rpy="0 0 0" />
       <child link="${prefix}gimbal_roll_link"/>
       <axis xyz="1 0 0"/>
-      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.5"/>
+      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.2"/>
     </joint>
     <link name="${prefix}gimbal_roll_link">
+      <inertial>
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+      </inertial>
     </link>
+
+    <transmission name="${prefix}gimbal_roll_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${prefix}gimbal_roll_joint">
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${prefix}gimbal_roll_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
 
     <joint name="${prefix}gimbal_pitch_joint" type="revolute">
       <parent link="${prefix}gimbal_roll_link"/>
       <origin xyz="0.134 0.110 0.0" rpy="0 0 0" />
       <child link="${prefix}gimbal_pitch_link"/>
       <axis xyz="0 1 0"/>
-      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.5"/>
+      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.2"/>
     </joint>
     <link name="${prefix}gimbal_pitch_link">
+      <inertial>
+        <mass value="0.005" />
+        <origin xyz="0 0 -0.27" />
+        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+      </inertial>
     </link>
+
+    <transmission name="${prefix}gimbal_pitch_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${prefix}gimbal_pitch_joint">
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${prefix}gimbal_pitch_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
 
     <joint name="${prefix}gimbal_camera_joint" type="fixed">
       <parent link="${prefix}gimbal_pitch_link"/>
@@ -60,7 +138,7 @@
     </joint>
     <link name="${prefix}gimbal_camera_link">
     </link>
-  
+
   </xacro:macro>
 
 </robot>
