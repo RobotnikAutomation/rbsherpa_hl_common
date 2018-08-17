@@ -74,9 +74,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.005" />
+        <mass value="0.5" />
         <origin xyz="0 0 0" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <solid_cuboid_inertia m="0.5" h="0.05" d="0.05" w="0.05"/>
       </inertial>
     </link>
     
@@ -97,7 +97,7 @@
       </joint>
       <actuator name="${prefix}torso_pantilt_tilt_motor">
         <mechanicalReduction>1</mechanicalReduction>
-        <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </actuator>
     </transmission>
     
@@ -118,9 +118,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.005" />
+        <mass value="0.5" />
         <origin xyz="0 0 0" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <solid_cuboid_inertia m="0.5" h="0.05" d="0.05" w="0.05"/>
       </inertial>
     </link>
 
