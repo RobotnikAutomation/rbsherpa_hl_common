@@ -10,8 +10,7 @@
         <!-- Controller spawner for ackermann model -->
         <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
               output="screen" args="		  
-              pantilt_pan_controller
-              pantilt_tilt_controller
+              base_controller
               joint_read_state_controller 
           ">
         </node>
