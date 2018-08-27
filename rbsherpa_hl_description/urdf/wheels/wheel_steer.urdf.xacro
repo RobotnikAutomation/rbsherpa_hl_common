@@ -44,12 +44,12 @@
       <collision>
 		    <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-			    <cylinder length="0.2" radius="0.1" />
+			    <cylinder length="0.1" radius="0.1" />
         </geometry>
       </collision>
 
       <inertial>
-        <mass value="5" />
+        <mass value="30.0" />
         <!--xacro:if value="${hq}">
           <origin xyz="0.00002 -0.06358 -0.18084" />
           <inertia  ixx="0.469495" ixy = "0.0001387555" ixz = "0.00006456469"

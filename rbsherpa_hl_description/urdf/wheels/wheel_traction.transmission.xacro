@@ -10,7 +10,7 @@
 		<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
 	  </joint>
 	  <actuator name="${prefix}_wheel_traction_joint_motor">
-		<hardwareInterface>hardware_interface/VelocityActuatorInterface</hardwareInterface>
+		<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
 		<mechanicalReduction>${wheel_traction_mechanical_reduction}</mechanicalReduction>
 	  </actuator>
 	 </transmission>
