@@ -48,7 +48,7 @@ gimbal_yaw_controller:
 
 
 base_controller:
-  type: rbsherpa_hl_ackermann_controller/RbSherpaHlAckermannController
+  type: rbsherpa_hl_omni_controller/RbSherpaHlOmniController
   traction:
     front_right:
       joint_name: rbsherpa_hl_a_front_right_wheel_traction_joint
@@ -71,6 +71,14 @@ base_controller:
       joint_name: rbsherpa_hl_a_front_left_wheel_steer_joint
       min_angle: -2.6 # rads
       max_angle: 2.6
+    back_right:
+      joint_name: rbsherpa_hl_a_back_right_wheel_steer_joint
+      min_angle: -3.1 # rads
+      max_angle: 3.1
+    back_left:
+      joint_name: rbsherpa_hl_a_back_left_wheel_steer_joint
+      min_angle: -3.1 # rads
+      max_angle: 3.1
   linear_speed_limit: 2.8
   linear_acceleration_limit: 2.0
   angular_speed_limit: 2.0
@@ -78,7 +86,8 @@ base_controller:
   odom_frame: rbsherpa_hl_a_odom
   robot_base_frame: rbsherpa_hl_a_base_footprint
   odom_broadcast_tf: true
-  odom_topic: /rbsherpa_hl_a/odom
+  odom_topic: /rbsherpa_hl_a/rbsherpa_hl_control/odom
+  command_topic: /rbsherpa_hl_a/rbsherpa_hl_control/cmd_vel
   wheel_base: 1.244 #from cad
   track_width: 0.734 #from cad
   wheel_diameter: 0.31 #  from cad

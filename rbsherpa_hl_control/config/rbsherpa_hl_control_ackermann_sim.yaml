@@ -62,7 +62,8 @@ base_controller:
   odom_frame: rbsherpa_hl_a_odom
   robot_base_frame: rbsherpa_hl_a_base_footprint
   odom_broadcast_tf: true
-  odom_topic: /rbsherpa_hl_a/odom
+  odom_topic: /rbsherpa_hl_a/rbsherpa_hl_control/odom
+  command_topic: /rbsherpa_hl_a/rbsherpa_hl_control/cmd_vel
   wheel_base: 1.244 #from cad
   track_width: 0.734 #from cad
   wheel_diameter: 0.31 #  from cad
