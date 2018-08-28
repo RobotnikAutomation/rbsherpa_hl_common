@@ -28,8 +28,8 @@
         <!-- reset frame_id parameters using user input data -->
         <param name="global_costmap/obstacles_layer/scan/sensor_frame" value="$(arg prefix)front_laser_link"/>
         <param name="local_costmap/obstacles_layer/scan/sensor_frame" value="$(arg prefix)front_laser_link"/>
-        <param name="global_costmap/obstacles_layer/scan/topic" value="$(arg id_robot)/front_laser/scan"/>
-        <param name="local_costmap/obstacles_layer/scan/topic" value="$(arg id_robot)/front_laser/scan"/>
+        <param name="global_costmap/obstacles_layer/scan/topic" value="front_laser/scan"/>
+        <param name="local_costmap/obstacles_layer/scan/topic" value="front_laser/scan"/>
         <param name="local_costmap/global_frame" value="$(arg prefix)odom"/>
         <param name="local_costmap/robot_base_frame" value="$(arg prefix)base_footprint"/>
         <param name="global_costmap/global_frame" value="$(arg prefix)map"/>
