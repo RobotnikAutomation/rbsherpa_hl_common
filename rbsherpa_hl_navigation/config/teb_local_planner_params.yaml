@@ -15,16 +15,16 @@ TebLocalPlannerROS:
      
   # Robot
           
-  max_vel_x: 0.2
-  max_vel_x_backwards: 0.2
+  max_vel_x: 0.4
+  max_vel_x_backwards: 0.4
   max_vel_y: 0.2
   max_vel_theta: 0.2
-  acc_lim_x: 0.2
+  acc_lim_x: 0.3
   acc_lim_y: 0.2
   acc_lim_theta: 0.2
-  min_turning_radius: 0.0
-  wheelbase: 0.0
-  cmd_angle_instead_rotvel: false
+  min_turning_radius: 1.5 
+  wheelbase: 1.244
+  cmd_angle_instead_rotvel: true # set true in ackermann mode
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
     #type: "point"
     #type: "circular"
@@ -38,11 +38,11 @@ TebLocalPlannerROS:
     #rear_offset: 0.2 
     #rear_radius: 0.2 
     type: "polygon"
-    vertices: [[-0.65, -0.45], [0.65, -0.45], [0.65,0.45], [-0.65,0.45]]
+    vertices: [[-0.85,-0.60],[1.2,-0.60],[1.2,0.60],[-0.85,0.60]]
  
   # GoalTolerance
      
-  xy_goal_tolerance: 0.1
+  xy_goal_tolerance: 0.2
   yaw_goal_tolerance: 0.25
   free_goal_vel: False
      
@@ -75,8 +75,8 @@ TebLocalPlannerROS:
   weight_acc_lim_x: 1
   weight_acc_lim_y: 1
   weight_acc_lim_theta: 1
-  weight_kinematics_nh: 1
-  weight_kinematics_forward_drive: 10
+  weight_kinematics_nh: 1000
+  weight_kinematics_forward_drive: 5
   weight_kinematics_turning_radius: 1
   weight_optimaltime: 1
   weight_obstacle: 50
