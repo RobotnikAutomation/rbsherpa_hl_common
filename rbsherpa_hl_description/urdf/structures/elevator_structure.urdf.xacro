@@ -37,9 +37,9 @@
       </collision>
 
       <inertial>
-        <mass value="0.005" />
-        <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <mass value="1" />
+        <origin xyz="0 0 0" />
+        <solid_cuboid_inertia m="1" h="0.1" d="0.1" w="0.1"/>
       </inertial>
     </link>
 
@@ -49,7 +49,7 @@
       <origin xyz="0.05 0.0 0" rpy="0 0 0" />
       <child link="${prefix}torso_elevator_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="0.0" upper="0.5" effort="1.0" velocity="0.07"/>
+      <limit lower="0.0" upper="0.5" effort="100.0" velocity="0.07"/>
       <xacro:insert_block name="origin" />
     </joint>
 
@@ -68,9 +68,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.005" />
+        <mass value="0.1" />
         <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <solid_cuboid_inertia m="0.1" h="0.1" d="0.1" w="0.1"/>
       </inertial>
     </link>
     <transmission name="${prefix}torso_elevator_trans">
@@ -89,7 +89,7 @@
       <origin xyz="0.0 0.0 1.37" rpy="0 0 0" />
       <child link="${prefix}torso_pantilt_pan_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-3.14" upper="3.14" effort="1.0" velocity="0.1"/>
+      <limit lower="-3.14" upper="3.14" effort="10.0" velocity="0.5"/>
       <xacro:insert_block name="origin" />
     </joint>
 
@@ -108,9 +108,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.005" />
-        <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <mass value="0.05" />
+        <origin xyz="0 0 0" />
+        <solid_cuboid_inertia m="0.05" h="0.1" d="0.1" w="0.1"/>
       </inertial>
     </link>
 
@@ -140,7 +140,7 @@
       <origin xyz="-0.42 -0.015 0.23" rpy="0 0 ${M_PI}" />
       <child link="${prefix}gun_tilt_link"/>
       <axis xyz="0 1 0"/>
-      <limit lower="-0.57" upper="0.1" effort="1.0" velocity="0.5"/>
+      <limit lower="-0.57" upper="0.1" effort="10.0" velocity="0.5"/>
       <xacro:insert_block name="origin" />
     </joint>
     <link name="${prefix}gun_tilt_link">
@@ -160,9 +160,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.005" />
-        <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <mass value="0.05" />
+        <origin xyz="0 0 0" />
+        <solid_cuboid_inertia m="0.05" h="0.1" d="0.1" w="0.1"/>
       </inertial> 
     </link>
     

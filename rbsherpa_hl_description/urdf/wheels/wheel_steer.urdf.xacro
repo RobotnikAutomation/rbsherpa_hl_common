@@ -21,7 +21,7 @@
       <child link="${prefix}_link"/>
       <xacro:insert_block name="origin" />
       <axis xyz="0 0 1" rpy="0 0 0" />
-      <limit effort="100" velocity="50" lower="-${steer_joint_position_limit}" upper="${steer_joint_position_limit}"/>
+      <limit effort="30.0" velocity="50.0" lower="-${steer_joint_position_limit}" upper="${steer_joint_position_limit}"/>
       <joint_properties damping="${steer_joint_damping}" friction="${steer_joint_friction}"/>
     </joint>
 

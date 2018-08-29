@@ -34,9 +34,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.005" />
-        <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <mass value="0.05" />
+        <origin xyz="0 0 0" />
+        <solid_cuboid_inertia m="0.05" h="0.1" d="0.1" w="0.1"/>
       </inertial>
     </link>
 
@@ -62,9 +62,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.005" />
-        <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <mass value="0.05" />
+        <origin xyz="0 0 0" />
+        <solid_cuboid_inertia m="0.05" h="0.1" d="0.1" w="0.1"/>
       </inertial>
     </link>
 
@@ -88,9 +88,9 @@
     </joint>
     <link name="${prefix}gimbal_roll_link">
       <inertial>
-        <mass value="0.005" />
-        <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <mass value="0.05" />
+        <origin xyz="0 0 0" />
+        <solid_cuboid_inertia m="0.05" h="0.1" d="0.1" w="0.1"/>
       </inertial>
     </link>
 
@@ -114,9 +114,9 @@
     </joint>
     <link name="${prefix}gimbal_pitch_link">
       <inertial>
-        <mass value="0.005" />
-        <origin xyz="0 0 -0.27" />
-        <solid_cuboid_inertia m="0.005" h="0.05" d="0.05" w="0.05"/>
+        <mass value="0.05" />
+        <origin xyz="0 0 0" />
+        <solid_cuboid_inertia m="0.05" h="0.1" d="0.1" w="0.1"/>
       </inertial>
     </link>
 

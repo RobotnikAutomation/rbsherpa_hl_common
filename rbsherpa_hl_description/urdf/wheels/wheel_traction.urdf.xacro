@@ -22,7 +22,7 @@
 	    <child link="${prefix}_link"/>
 	    <xacro:insert_block name="origin" />
 	    <axis xyz="0 1 0" rpy="0 0 0" />
-	    <limit effort="100" velocity="100"/>
+	    <limit effort="10.0" velocity="10.0"/>
 	    <joint_properties damping="${wheel_joint_damping}" friction="${wheel_joint_friction}"/>
 	  </joint>
 
