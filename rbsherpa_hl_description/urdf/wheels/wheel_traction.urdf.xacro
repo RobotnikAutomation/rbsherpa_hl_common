@@ -7,6 +7,7 @@
   <xacro:property name="wheel_joint_damping" value="2.0" />
   <xacro:property name="wheel_joint_friction" value="1.0" />
 	<xacro:property name="wheel_radius" value="0.18415" />
+	<xacro:property name="wheel_inner_radius" value="0.155" />
 	<xacro:property name="wheel_height" value="0.14" />
 
 	<xacro:macro name="cylinder_inertia" params="m r h">
@@ -45,7 +46,7 @@
 	    <collision>
 				<origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
 	      <geometry>
-	        <cylinder length="${wheel_height}" radius="${wheel_radius}" />
+	        <cylinder length="${wheel_height}" radius="${wheel_inner_radius}" />
 	      </geometry>
 	    </collision>
 
