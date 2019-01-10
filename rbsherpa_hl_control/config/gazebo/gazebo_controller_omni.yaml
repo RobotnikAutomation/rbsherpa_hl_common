@@ -48,7 +48,7 @@ gazebo_ros_control:
       antiwindup: false
       publish_state: true
 
-    rbsherpa_hl_a_gun_tilt_joint:
+    rbsherpa_hl_a_torso_pantilt_tilt_joint:
       p: 2.0
       i: 0.1
       d: 0.01

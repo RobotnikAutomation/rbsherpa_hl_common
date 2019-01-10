@@ -70,12 +70,14 @@ base_controller:
   odom_frame: rbsherpa_hl_odom
   robot_base_frame: rbsherpa_hl_base_footprint
   odom_broadcast_tf: true
-  odom_topic: /rbsherpa_hl_a/odom
+  odom_topic: odom
   wheel_base: 1.244 #from cad # 1.244 or 1.42
   track_width: 0.734 #from cad # 0.734 or 0.72
-  wheel_diameter: 0.3684 #  from cad
+  wheel_diameter: 0.315 #  from cad
   cmd_watchdog_duration: 0.2
   odom_publish_frequency: 100
+  motion_odometry: true
+  imu_topic: 'imu/data'
 
 
 joint_read_state_controller:
