@@ -44,8 +44,8 @@
       <parent link="${prefix}gimbal_base_link"/>
       <origin xyz="0.0 0.0 -0.097" rpy="0 0 0" />
       <child link="${prefix}gimbal_yaw_link"/>
-      <axis xyz="0 0 1"/>
-      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.2"/>
+      <axis xyz="0 0 -1"/>
+      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.5"/>
     </joint>
     <link name="${prefix}gimbal_yaw_link">
       <visual>
@@ -109,8 +109,8 @@
       <parent link="${prefix}gimbal_roll_link"/>
       <origin xyz="0.134 0.110 0.0" rpy="0 0 0" />
       <child link="${prefix}gimbal_pitch_link"/>
-      <axis xyz="0 1 0"/>
-      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.2"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="1.0" velocity="0.5"/>
     </joint>
     <link name="${prefix}gimbal_pitch_link">
       <inertial>
