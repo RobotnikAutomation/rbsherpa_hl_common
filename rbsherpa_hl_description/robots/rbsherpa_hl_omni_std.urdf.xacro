@@ -27,9 +27,10 @@
 	<xacro:arg name="prefix" default="rbsherpa_hl"/>
 	<xacro:arg name="hq" default="true"/>
 	<xacro:arg name="ros_planar_move_plugin" default="true"/>
+	<xacro:arg name="sim" default="false"/>
 
 	<!-- Import Gazebo Stuff -->
-	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/common.gazebo.xacro" />
+	<!--xacro:include filename="$(find rbsherpa_hl_description)/urdf/common.gazebo.xacro" /-->
 	<xacro:include filename="$(find rbsherpa_hl_description)/urdf/bases/rbsherpa_hl_base.gazebo.xacro" />
 
 	<!-- ***************** -->
@@ -86,7 +87,7 @@
 		<xacro:wheel_steer prefix="$(arg prefix)back_left_wheel_steer" parent="$(arg prefix)base_link" hq="$(arg hq)" type="revolute" transmission="true">
 			<origin xyz="-${wheel_steer_offset_x} ${wheel_steer_offset_y} ${wheel_steer_offset_z}" rpy="0 0 0"/>
 		</xacro:wheel_steer>
-
+	
 		<!-- traction WHEELS -->
 		<xacro:wheel_traction prefix="$(arg prefix)front_right_wheel_traction" parent="$(arg prefix)front_right_wheel_steer_link" hq="$(arg hq)">
 			<origin xyz="${wheel_traction_offset_x} -${wheel_traction_offset_y} ${wheel_traction_offset_z}" rpy="0 0 ${PI}"/>

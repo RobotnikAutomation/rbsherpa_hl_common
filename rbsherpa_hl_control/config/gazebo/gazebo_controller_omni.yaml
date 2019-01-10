@@ -33,7 +33,7 @@ gazebo_ros_control:
       publish_state: true
 
     rbsherpa_hl_a_torso_elevator_joint:
-      p: 100.0
+      p: 200.0
       i: 0.01
       d: 10.0
       i_clamp: 0.2

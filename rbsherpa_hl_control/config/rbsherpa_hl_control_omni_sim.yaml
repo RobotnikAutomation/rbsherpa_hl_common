@@ -22,15 +22,15 @@ back_right_wheel_traction_joint_controller:
   type: velocity_controllers/JointVelocityController
   joint: rbsherpa_hl_a_back_right_wheel_traction_joint
 
-elevator_structure_controller:
+structure_position_controller:
   type: position_controllers/JointPositionController
   joint: rbsherpa_hl_a_torso_elevator_joint
 
-torso_pantilt_pan_controller:
+pan_position_controller:
   type: position_controllers/JointPositionController
   joint: rbsherpa_hl_a_torso_pantilt_pan_joint
 
-gun_tilt_controller:
+tilt_position_controller:
   type: position_controllers/JointPositionController
   joint: rbsherpa_hl_a_gun_tilt_joint
 
@@ -86,8 +86,8 @@ base_controller:
   odom_frame: rbsherpa_hl_a_odom
   robot_base_frame: rbsherpa_hl_a_base_footprint
   odom_broadcast_tf: true
-  odom_topic: /rbsherpa_hl_a/rbsherpa_hl_control/odom
-  command_topic: /rbsherpa_hl_a/rbsherpa_hl_control/cmd_vel
+  odom_topic: odom
+  command_topic: cmd_vel
   wheel_base: 1.244 #from cad
   track_width: 0.734 #from cad
   wheel_diameter: 0.31 #  from cad
